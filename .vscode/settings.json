@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "__config": "c",
+        "__nullptr": "c",
+        "typeinfo": "c"
+    }
+}
