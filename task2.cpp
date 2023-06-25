@@ -103,7 +103,7 @@ template<typename T>
 void displayList(Cell<T>* list) {
     Cell<T>* current = list;
     while (current != nullptr) {
-        current->value->displayEdge();
+        (*current->value).displayEdge();
         std::cout << std::endl;
         current = current->next;
     }
@@ -120,3 +120,15 @@ template bool searchCell(Cell<Edge>* list, Edge* value);
 template void destroyListIterative(Cell<Edge>*& list);
 template void destroyListRecursive(Cell<Edge>*& list);
 template void displayList(Cell<Edge>* list);
+
+// Explicit template instantiation for std::shared_ptr<Edge>
+template struct Cell<std::shared_ptr<Edge> >;
+template Cell<std::shared_ptr<Edge> >* createCell(std::shared_ptr<Edge>* value);
+template void insertAtBeginning(Cell<std::shared_ptr<Edge> >*& list, Cell<std::shared_ptr<Edge> >* cell);
+template void insertAtEnd(Cell<std::shared_ptr<Edge> >*& list, Cell<std::shared_ptr<Edge> >* cell);
+template Cell<std::shared_ptr<Edge> >* popFromBeginning(Cell<std::shared_ptr<Edge> >*& list);
+template Cell<std::shared_ptr<Edge> >* popFromEnd(Cell<std::shared_ptr<Edge> >*& list);
+template bool searchCell(Cell<std::shared_ptr<Edge> >* list, std::shared_ptr<Edge>* value);
+template void destroyListIterative(Cell<std::shared_ptr<Edge> >*& list);
+template void destroyListRecursive(Cell<std::shared_ptr<Edge> >*& list);
+template void displayList(Cell<std::shared_ptr<Edge> >* list);

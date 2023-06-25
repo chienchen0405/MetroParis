@@ -63,3 +63,6 @@ double Edge::getTravelTime() const {
 Node* Edge::getDestination() const {
     return destination;
 }
+
+std::vector<Node> nodes;
+std::vector<Edge> edges;
