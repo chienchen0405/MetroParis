@@ -1,29 +1,27 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
 const int MaxVnum = 100; // Maximum number of vertices
-
+ 
 typedef char VexType; // Vertex data type is character
 typedef struct AdjNode
 { // Definition of adjacency node
     int v;                  // Index of adjacent vertex
     struct AdjNode *next;   // Pointer to the next adjacent node
 } AdjNode;
-
+ 
 typedef struct VexNode
 { // Definition of vertex node
     VexType data;            // Data of the vertex, type can be changed as needed
     AdjNode *first;          // Pointer to the first adjacent node
-    vector<int> predecessors; // Store the set of predecessors
 } VexNode;
-
+ 
 typedef struct
 { // Definition of adjacency list
-    VexNode Vex[MaxVnum];
+    VexNode  Vex[MaxVnum];
     int vexnum, edgenum; // Number of vertices and edges
 } ALGragh;
-
+ 
 int locatevex(ALGragh G, VexType x)
 {
     for (int i = 0; i < G.vexnum; i++) // Find the index of the vertex information
@@ -31,7 +29,7 @@ int locatevex(ALGragh G, VexType x)
             return i;
     return -1; // Not found
 }
-
+ 
 void insertedge(ALGragh &G, int i, int j) // Insert an edge
 {
     AdjNode *s;
@@ -39,9 +37,37 @@ void insertedge(ALGragh &G, int i, int j) // Insert an edge
     s->v = j;
     s->next = G.Vex[i].first;
     G.Vex[i].first = s;
+ 
+    // For undirected graph, add the reverse edge as well
+    s = new AdjNode;
+    s->v = i;
+    s->next = G.Vex[j].first;
+    G.Vex[j].first = s;
+}
 
-    // Update the set of predecessors
-    G.Vex[j].predecessors.push_back(i);
+void CreateALGraph(ALGragh &G)
+{
+    cout << "Enter the number of vertices: ";
+    cin >> G.vexnum;
+    cout << "Enter the number of edges: ";
+    cin >> G.edgenum;
+
+    cout << "Enter the data of each vertex:" << endl;
+    for (int i = 0; i < G.vexnum; i++) {
+        cin >> G.Vex[i].data;
+        G.Vex[i].first = NULL;
+    }
+
+    cout << "Enter the edges (format: start_vertex end_vertex):" << endl;
+    for (int k = 0; k < G.edgenum; k++) {
+        VexType v1, v2;
+        cin >> v1 >> v2;
+        int i = locatevex(G, v1);
+        int j = locatevex(G, v2);
+        if (i != -1 && j != -1) {
+            insertedge(G, i, j);
+        }
+    }
 }
 
 void printg(ALGragh G) // Print the adjacency list
@@ -50,95 +76,70 @@ void printg(ALGragh G) // Print the adjacency list
     for (int i = 0; i < G.vexnum; i++)
     {
         AdjNode *t = G.Vex[i].first;
-        cout << G.Vex[i].data << ":  ";
+        cout << G.Vex[i].data << ": ";
         while (t != NULL)
         {
-            cout << "[" << t->v << "]  ";
+            cout << "[" << G.Vex[t->v].data << "] ";
             t = t->next;
         }
         cout << endl;
     }
 }
 
-void CreateALGraph(ALGragh &G) // Create a directed graph using adjacency list
+vector<VexType> getPredecessors(ALGragh G, VexType N) // Get the predecessors of a node
 {
-    int i, j;
-    VexType u, v;
-    cout << "Enter the number of vertices and edges:" << endl;
-    cin >> G.vexnum >> G.edgenum;
-    cout << "Enter the vertex information:" << endl;
-    for (i = 0; i < G.vexnum; i++) // Input vertex information and store it in the vertex array
-        cin >> G.Vex[i].data;
-    for (i = 0; i < G.vexnum; i++)
-        G.Vex[i].first = NULL;
-    cout << "Enter the two vertices u and v for each edge" << endl;
-    while (G.edgenum--)
-    {
-        cin >> u >> v;
-        i = locatevex(G, u); // Find the index of vertex u
-        j = locatevex(G, v); // Find the index of vertex v
-        if (i != -1 && j != -1)
-            insertedge(G, i, j);
-        else
-        {
-            cout << "Invalid vertex information! Please re-enter!" << endl;
-            G.edgenum++; //
+    vector<VexType> predecessors;
+	int index = locatevex(G, N);
+    if (index != -1) {
+        for (int i = 0; i < G.vexnum; i++) {
+            AdjNode* t = G.Vex[i].first;
+            while (t != NULL) {
+                if (t->v == index) {
+                    predecessors.push_back(G.Vex[i].data);
+                    break;
+                }
+                t = t->next;
+            }
         }
     }
+    return predecessors;
 }
 
-vector<int> getPredecessors(ALGragh G, int node)
+vector<VexType> getSuccessors(ALGragh G, VexType N) // Get the successors of a node
 {
-    return G.Vex[node].predecessors;
-}
-
-vector<int> getSuccessors(ALGragh G, int node)
-{
-    vector<int> successors;
-    AdjNode *p = G.Vex[node].first;
-    while (p != NULL)
-    {
-        successors.push_back(p->v);
-        p = p->next;
+    vector<VexType> successors;
+    int index = locatevex(G, N);
+    if (index != -1) {
+        AdjNode* t = G.Vex[index].first;
+        while (t != NULL) {
+            successors.push_back(G.Vex[t->v].data);
+            t = t->next;
+        }
     }
-
     return successors;
 }
 
 int main()
 {
     ALGragh G;
-    CreateALGraph(G); // Create a directed graph using adjacency list
-    printg(G);        // Print the adjacency list
-
-    // Get the set of predecessors and successors of node N
+    CreateALGraph(G); // Create an undirected graph using adjacency list
+    printg(G); // Print the adjacency list   VexType N;
+    cout << "Enter a node: ";
     VexType N;
-    cout << "Enter the value of node N: ";
     cin >> N;
-
-    int node = locatevex(G, N); // Get the index of node N
-    if (node != -1)
-    {
-        vector<int> predecessors = getPredecessors(G, node);
-        vector<int> successors = getSuccessors(G, node);    
-        cout << "Predecessors of node " << N << ": ";
-        for (int i = 0; i < predecessors.size(); i++)
-        {
-            cout << G.Vex[predecessors[i]].data << " ";
-        }
-        cout << endl;
-
-        cout << "Successors of node " << N << ": ";
-        for (int i = 0; i < successors.size(); i++)
-        {
-            cout << G.Vex[successors[i]].data << " ";
-        }
-        cout << endl;
+    vector<VexType> predecessors = getPredecessors(G, N);
+    cout << "Predecessors of node " << N << ": ";
+    for (int i = 0; i < predecessors.size(); i++) {
+        cout << predecessors[i] << " ";
     }
-    else
-    {
-        cout << "Node " << N << " does not exist!" << endl;
+    cout << endl;
+    
+    vector<VexType> successors = getSuccessors(G, N);
+    cout << "Successors of node " << N << ": ";
+    for (int i = 0; i < successors.size(); i++) {
+        cout << successors[i] << " ";
     }
-
+    cout << endl;
+    
     return 0;
 }
