@@ -1,32 +1,29 @@
 #include "task1.h"
 #include "task3.h"
+#include <iostream>
 
 int main() {
     // Create some nodes
-    Node node1(1, "Node 1", "Line A", 10.0, 20.0);
-    Node node2(2, "Node 2", "Line B", 30.0, 40.0);
-    Node node3(3, "Node 3", "Line C", 50.0, 60.0);
+    Node node1(1, "Node1", "Line1", 0.0, 0.0);
+    Node node2(2, "Node2", "Line2", 1.0, 1.0);
+    Node node3(3, "Node3", "Line3", 2.0, 2.0);
 
-    // Create an adjacency matrix
-    AdjacencyMatrix matrix(3);
-
-    // Add edges to the matrix
-    matrix.addEdge(&node1, &node2, 100.0, 60.0, 200);
-    matrix.addEdge(&node2, &node3, 150.0, 90.0, 300);
-    matrix.addEdge(&node3, &node1, 200.0, 120.0, 400);
+    // Create an adjacency matrix and add some edges
+    AdjacencyMatrix matrix;
+    matrix.addEdge(&node1, &node2, 1.0, 1.0, 1);
+    matrix.addEdge(&node2, &node3, 2.0, 2.0, 2);
 
     // Display the matrix
+    std::cout << "Adjacency Matrix:" << std::endl;
     matrix.displayMatrix();
 
-    // Create an adjacency list
-    AdjacencyList list(3);
-
-    // Add edges to the list
-    list.addEdge(&node1, &node2, 100.0, 60.0, 200);
-    list.addEdge(&node2, &node3, 150.0, 90.0, 300);
-    list.addEdge(&node3, &node1, 200.0, 120.0, 400);
+    // Create an adjacency list and add some edges
+    AdjacencyList list;
+    list.addEdge(&node1, &node2, 1.0, 1.0, 1);
+    list.addEdge(&node2, &node3, 2.0, 2.0, 2);
 
     // Display the list
+    std::cout << "Adjacency List:" << std::endl;
     list.displayList();
 
     return 0;
