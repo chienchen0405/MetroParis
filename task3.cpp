@@ -1,70 +1,106 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "task1.h"
+#include "task3.h"
 
-// 定义邻接矩阵结构体
-typedef struct {
-    int** matrix;  // 存储矩阵的二维数组
-    int size;  // 矩阵的大小
-} AdjacencyMatrix;
+// AdjacencyMatrix class implementation
 
-// 创建一个 size × size 的矩阵，并用空指针初始化所有元素
-AdjacencyMatrix* createMatrix(int size) {
-    AdjacencyMatrix* adjMatrix = (AdjacencyMatrix*)malloc(sizeof(AdjacencyMatrix));
-    adjMatrix->size = size;
+AdjacencyMatrix::AdjacencyMatrix(int size) {
+    this->size = size;
 
-    // 分配存储矩阵的二维数组内存
-    adjMatrix->matrix = (int**)malloc(size * sizeof(int*));
+    // Allocate memory for the matrix
+    matrix = new Edge**[size];
     for (int i = 0; i < size; i++) {
-        adjMatrix->matrix[i] = (int*)malloc(size * sizeof(int));
+        matrix[i] = new Edge*[size];
         for (int j = 0; j < size; j++) {
-            adjMatrix->matrix[i][j] = NULL;  // 用空指针初始化所有元素
+            matrix[i][j] = nullptr; // Initialize all elements with null pointer
         }
     }
-
-    return adjMatrix;
 }
 
-// 在节点 from 和 to 之间添加一条边，其中 from 和 to 是作为参数给出的
-void addEdge(AdjacencyMatrix* adjMatrix, int from, int to) {
-    adjMatrix->matrix[from][to] = 1;
-}
-
-// 检索存储在行 row，列 col 的值
-int getValue(AdjacencyMatrix* adjMatrix, int row, int col) {
-    return adjMatrix->matrix[row][col];
-}
-
-// 销毁一个邻接矩阵（内存释放）
-void destroyMatrix(AdjacencyMatrix* adjMatrix) {
-    for (int i = 0; i < adjMatrix->size; i++) {
-        free(adjMatrix->matrix[i]);
-    }
-    free(adjMatrix->matrix);
-    free(adjMatrix);
-}
-
-// 显示一个邻接矩阵
-void displayMatrix(AdjacencyMatrix* adjMatrix) {
-    for (int i = 0; i < adjMatrix->size; i++) {
-        for (int j = 0; j < adjMatrix->size; j++) {
-            printf("%d ", adjMatrix->matrix[i][j]);
+AdjacencyMatrix::~AdjacencyMatrix() {
+    // Deallocate memory for the matrix
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            delete matrix[i][j];
         }
-        printf("\n");
+        delete[] matrix[i];
+    }
+    delete[] matrix;
+}
+
+void AdjacencyMatrix::addEdge(Node* source, Node* destination, double distance, double travelTime, int capacity) {
+    // Create a new Edge object
+    Edge* edge = new Edge(source, destination, distance, travelTime, capacity);
+
+    // Set the edge in the matrix
+    matrix[source->getId()][destination->getId()] = edge;
+}
+
+Edge* AdjacencyMatrix::getEdge(Node* source, Node* destination) {
+    // Retrieve the edge from the matrix
+    return matrix[source->getId()][destination->getId()];
+}
+
+void AdjacencyMatrix::displayMatrix() {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (matrix[i][j] != nullptr) {
+                std::cout << "Edge exists between Node " << i << " and Node " << j << ": Yes" << std::endl;
+                matrix[i][j]->displayEdge();
+            }
+            else {
+                std::cout << "Edge exists between Node " << i << " and Node " << j << ": No" << std::endl;
+            }
+            std::cout << std::endl;
+        }
     }
 }
 
-int main() {
-    int size = 3;  // 矩阵的大小
+// AdjacencyList class implementation
 
-    AdjacencyMatrix* adjMatrix = createMatrix(size);
-    addEdge(adjMatrix, 1, 2);
+AdjacencyList::AdjacencyList(int size) {
+    this->size = size;
 
-    int value = getValue(adjMatrix, 1, 2);
-    printf("存储在行1，列2的值为：%d\n", value);
+    // Resize the vector to hold 'size' number of elements
+    list.resize(size);
+}
 
-    displayMatrix(adjMatrix);
+AdjacencyList::~AdjacencyList() {
+    // Deallocate memory for each linked list
+    for (int i = 0; i < size; i++) {
+        for (size_t j = 0; j < list[i].size(); j++) {
+            delete list[i][j];
+        }
+    }
+}
 
-    destroyMatrix(adjMatrix);
+void AdjacencyList::addEdge(Node* source, Node* destination, double distance, double travelTime, int capacity) {
+    // Create a new Edge object
+    Edge* edge = new Edge(source, destination, distance, travelTime, capacity);
 
-    return 0;
+    // Add the edge to the source node's list
+    list[source->getId()].push_back(edge);
+}
+
+Edge* AdjacencyList::getEdge(Node* source, Node* destination) {
+    // Search for the edge in the source node's list
+    for (Edge* edge : list[source->getId()]) {
+        if (edge->getDestination() == destination) {
+            return edge;
+        }
+    }
+    return nullptr; // Edge not found
+}
+
+void AdjacencyList::displayList() {
+    for (int i = 0; i < size; i++) {
+        for (size_t j = 0; j < list[i].size(); j++) {
+            Edge* edge = list[i][j];
+            std::cout << "Source Node: " << edge->getSource()->getName() << std::endl;
+            std::cout << "Destination Node: " << edge->getDestination()->getName() << std::endl;
+            std::cout << "Distance: " << edge->getDistance() << " meters" << std::endl;
+            std::cout << "Travel Time: " << edge->getTravelTime() << " minutes" << std::endl;
+            std::cout << "Capacity: " << edge->getCapacity() << " passengers" << std::endl;
+            std::cout << std::endl;
+        }
+    }
 }
