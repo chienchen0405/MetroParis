@@ -86,8 +86,8 @@ void testMetroNetwork() {
 
 
 int main() {
-    //testStation();
-    //testStationLine();
+    testStation();
+    testStationLine();
     testMetroNetwork();
     return 0;
 }

@@ -51,6 +51,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F817F3672A4990AD0037F81A /* implement */ = {
+			isa = PBXGroup;
+			children = (
+				F8E94D552A48858B0007475B /* main.cpp */,
+				F8E94D5F2A4886920007475B /* Station.cpp */,
+				F8BFB7AA2A496AE0005469A3 /* StationLine.cpp */,
+				F8BFB7AE2A498055005469A3 /* MetroNetwork.cpp */,
+				F8BFB7B12A498DC3005469A3 /* MetroData.cpp */,
+			);
+			name = implement;
+			sourceTree = "<group>";
+		};
 		F8E94D492A48858B0007475B = {
 			isa = PBXGroup;
 			children = (
@@ -70,23 +82,10 @@
 		F8E94D542A48858B0007475B /* MetroParis */ = {
 			isa = PBXGroup;
 			children = (
+				F817F3672A4990AD0037F81A /* implement */,
 				F8E94D632A4887720007475B /* header */,
-				F8E94D5E2A4886660007475B /* implement */,
 			);
 			path = MetroParis;
-			sourceTree = "<group>";
-		};
-		F8E94D5E2A4886660007475B /* implement */ = {
-			isa = PBXGroup;
-			children = (
-				F8E94D552A48858B0007475B /* main.cpp */,
-				F8E94D5F2A4886920007475B /* Station.cpp */,
-				F8BFB7AA2A496AE0005469A3 /* StationLine.cpp */,
-				F8BFB7AE2A498055005469A3 /* MetroNetwork.cpp */,
-				F8BFB7B12A498DC3005469A3 /* MetroData.cpp */,
-				F8BFB7B22A498DC3005469A3 /* MetroData.hpp */,
-			);
-			path = implement;
 			sourceTree = "<group>";
 		};
 		F8E94D632A4887720007475B /* header */ = {
@@ -96,6 +95,7 @@
 				F8E94D642A488A760007475B /* LinkedList.hpp */,
 				F8BFB7AB2A496AE0005469A3 /* StationLine.hpp */,
 				F8BFB7AF2A498055005469A3 /* MetroNetwork.hpp */,
+				F8BFB7B22A498DC3005469A3 /* MetroData.hpp */,
 			);
 			name = header;
 			sourceTree = "<group>";
