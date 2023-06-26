@@ -346,6 +346,40 @@
 			<key>uniqueIdentifier</key>
 			<string>3B078702-FDD0-48F9-9FDE-D06B665DC1A6</string>
 		</dict>
+		<key>41494FF4-E42D-4B3A-A1EE-BA8058D3D533</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>41494FF4-E42D-4B3A-A1EE-BA8058D3D533.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709484893.91787302</real>
+			<key>timeStoppedRecording</key>
+			<real>709484893.98930001</real>
+			<key>title</key>
+			<string>Build MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>41494FF4-E42D-4B3A-A1EE-BA8058D3D533</string>
+		</dict>
 		<key>46414258-5731-4489-966F-DF68CADF2C96</key>
 		<dict>
 			<key>className</key>
@@ -584,6 +618,40 @@
 			<key>uniqueIdentifier</key>
 			<string>64D3A280-C8CB-4EAE-8099-6EBD842DAE55</string>
 		</dict>
+		<key>706816A8-D12C-42B9-9ED6-ACB4C3F5D15D</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>706816A8-D12C-42B9-9ED6-ACB4C3F5D15D.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709486909.60031199</real>
+			<key>timeStoppedRecording</key>
+			<real>709486910.32932103</real>
+			<key>title</key>
+			<string>Build MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>706816A8-D12C-42B9-9ED6-ACB4C3F5D15D</string>
+		</dict>
 		<key>7C7231CA-F844-491E-8FDB-AAB388C9BF86</key>
 		<dict>
 			<key>className</key>
@@ -617,6 +685,74 @@
 			<string>Build MetroParis</string>
 			<key>uniqueIdentifier</key>
 			<string>7C7231CA-F844-491E-8FDB-AAB388C9BF86</string>
+		</dict>
+		<key>9EAAA113-59E8-4131-BA2D-7AA431201659</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>9EAAA113-59E8-4131-BA2D-7AA431201659.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709485854.60216403</real>
+			<key>timeStoppedRecording</key>
+			<real>709485855.99021697</real>
+			<key>title</key>
+			<string>Build MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>9EAAA113-59E8-4131-BA2D-7AA431201659</string>
+		</dict>
+		<key>ACF8DF9D-6F90-47DF-912D-9D0D0AD40758</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>ACF8DF9D-6F90-47DF-912D-9D0D0AD40758.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709486837.64183497</real>
+			<key>timeStoppedRecording</key>
+			<real>709486838.31899703</real>
+			<key>title</key>
+			<string>Build MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>ACF8DF9D-6F90-47DF-912D-9D0D0AD40758</string>
 		</dict>
 		<key>AF53B606-BDB6-498A-867F-4638FD3DEB56</key>
 		<dict>
@@ -821,6 +957,74 @@
 			<string>Build MetroParis</string>
 			<key>uniqueIdentifier</key>
 			<string>D9D0A8A6-6095-41A2-9FA3-80F751D9B599</string>
+		</dict>
+		<key>E95E7A73-3DE1-4EDE-8764-A48979755642</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>E95E7A73-3DE1-4EDE-8764-A48979755642.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709486700.66215396</real>
+			<key>timeStoppedRecording</key>
+			<real>709486701.39338303</real>
+			<key>title</key>
+			<string>Build MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>E95E7A73-3DE1-4EDE-8764-A48979755642</string>
+		</dict>
+		<key>FA040A7B-0F70-47F5-A1E6-A28DBB59244E</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>FA040A7B-0F70-47F5-A1E6-A28DBB59244E.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709484932.59226</real>
+			<key>timeStoppedRecording</key>
+			<real>709484932.64662504</real>
+			<key>title</key>
+			<string>Build MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>FA040A7B-0F70-47F5-A1E6-A28DBB59244E</string>
 		</dict>
 	</dict>
 </dict>

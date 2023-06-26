@@ -12,13 +12,27 @@ void MetroData::readFromFile(const std::string& filename, MetroNetwork& network)
     }
 
     std::string line;
+    bool isFirstRow = true;
     while (std::getline(file, line)) {
+        if (isFirstRow) {
+            isFirstRow = false;
+            continue;
+        }
+
         std::istringstream iss(line);
-        std::string token;
         std::vector<std::string> tokens;
+        std::string token;
+        // Ignore the first field in each line
+        std::getline(iss, token, ',');
         while (std::getline(iss, token, ',')) {
             tokens.push_back(token);
         }
+
+        // Print out the tokens for debugging
+        for (const auto& t : tokens) {
+            std::cout << t << " ";
+        }
+        std::cout << std::endl;
 
         // Skip the first token if it's an empty string
         size_t startIndex = tokens[0].empty() ? 1 : 0;
@@ -85,25 +99,19 @@ int MetroData::getMaxStationId(const std::string& filename) {
     while (std::getline(file, line)) {
         std::istringstream iss(line);
         std::string token;
-        std::vector<std::string> tokens;
+        // Ignore the first field in each line
+        std::getline(iss, token, ',');
         while (std::getline(iss, token, ',')) {
-            tokens.push_back(token);
-        }
-
-        if (tokens.size() < 2) {
-            std::cerr << "Invalid line format: " << line << std::endl;
-            continue;
-        }
-
-        try {
-            int sourceId = std::stoi(tokens[0]);
-            int destinationId = std::stoi(tokens[1]);
-            maxId = std::max({maxId, sourceId, destinationId});
-        } catch (std::invalid_argument& e) {
-            std::cerr << "Invalid argument in line: " << line << std::endl;
+            try {
+                int id = std::stoi(token);
+                if (id > maxId) {
+                    maxId = id;
+                }
+            } catch (std::invalid_argument& e) {
+                // Ignore invalid arguments
+            }
         }
     }
-
     return maxId;
 }
 

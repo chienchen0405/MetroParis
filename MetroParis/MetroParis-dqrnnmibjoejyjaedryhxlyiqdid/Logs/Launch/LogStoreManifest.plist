@@ -321,6 +321,51 @@
 			<key>uniqueIdentifier</key>
 			<string>43B43946-C52F-4930-B55E-AAF17A7C52D0</string>
 		</dict>
+		<key>443B4D73-FE4A-4140-96CB-F1AF9AD62EB1</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>ACF8DF9D-6F90-47DF-912D-9D0D0AD40758</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-MetroParis-2023.06.26_23-40-37-+0800.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709486837.64165795</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>443B4D73-FE4A-4140-96CB-F1AF9AD62EB1</string>
+		</dict>
 		<key>48CC8D4C-7858-427C-8358-BBAB4C7D5EFE</key>
 		<dict>
 			<key>auxiliaryLogUniqueIdentifier</key>
@@ -365,6 +410,51 @@
 			<string>Run MetroParis</string>
 			<key>uniqueIdentifier</key>
 			<string>48CC8D4C-7858-427C-8358-BBAB4C7D5EFE</string>
+		</dict>
+		<key>5AB326C6-190B-4CE7-9456-BE4139211C0D</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>706816A8-D12C-42B9-9ED6-ACB4C3F5D15D</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-MetroParis-2023.06.26_23-41-49-+0800.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709486909.60011303</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>5AB326C6-190B-4CE7-9456-BE4139211C0D</string>
 		</dict>
 		<key>5F276E41-6BE4-4BB1-8BF6-F7A98191960F</key>
 		<dict>
@@ -501,6 +591,51 @@
 			<key>uniqueIdentifier</key>
 			<string>674AF7DD-EEEA-4015-A9AE-7B67A8AF8D6A</string>
 		</dict>
+		<key>7CF65E94-092E-4545-BB54-7E10146A6D98</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>41494FF4-E42D-4B3A-A1EE-BA8058D3D533</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-MetroParis-2023.06.26_23-08-13-+0800.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709484893.91776299</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>7CF65E94-092E-4545-BB54-7E10146A6D98</string>
+		</dict>
 		<key>7D8C5098-421E-453D-9119-95403404D6FB</key>
 		<dict>
 			<key>auxiliaryLogUniqueIdentifier</key>
@@ -545,6 +680,51 @@
 			<string>Run MetroParis</string>
 			<key>uniqueIdentifier</key>
 			<string>7D8C5098-421E-453D-9119-95403404D6FB</string>
+		</dict>
+		<key>86A13BFE-9475-4694-9C76-DBE5FCF3EFBB</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>9EAAA113-59E8-4131-BA2D-7AA431201659</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-MetroParis-2023.06.26_23-24-14-+0800.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709485854.60194099</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>86A13BFE-9475-4694-9C76-DBE5FCF3EFBB</string>
 		</dict>
 		<key>87D5E0C2-7169-48F5-A660-C8299627DF32</key>
 		<dict>
@@ -951,6 +1131,51 @@
 			<key>uniqueIdentifier</key>
 			<string>C9A58D8A-1343-4151-AF64-2D102B5E6B5B</string>
 		</dict>
+		<key>D2918CC8-3F17-4966-8168-B1796827D190</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>FA040A7B-0F70-47F5-A1E6-A28DBB59244E</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-MetroParis-2023.06.26_23-08-52-+0800.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709484932.59209001</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>D2918CC8-3F17-4966-8168-B1796827D190</string>
+		</dict>
 		<key>E57B9B45-80DC-4573-9A12-1002E1DCB0ED</key>
 		<dict>
 			<key>auxiliaryLogUniqueIdentifier</key>
@@ -1085,6 +1310,51 @@
 			<string>Run MetroParis</string>
 			<key>uniqueIdentifier</key>
 			<string>EBE2B16F-9E0E-44E9-B563-5E8594348C0D</string>
+		</dict>
+		<key>FC624069-308F-41DD-A466-42695925B0CA</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>E95E7A73-3DE1-4EDE-8764-A48979755642</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-MetroParis-2023.06.26_23-38-20-+0800.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MetroParis project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MetroParis</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run MetroParis</string>
+			<key>timeStartedRecording</key>
+			<real>709486700.66195405</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run MetroParis</string>
+			<key>uniqueIdentifier</key>
+			<string>FC624069-308F-41DD-A466-42695925B0CA</string>
 		</dict>
 	</dict>
 </dict>

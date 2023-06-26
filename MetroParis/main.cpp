@@ -104,7 +104,7 @@ void testMetroData() {
     MetroData data;
 
     int maxId = data.getMaxStationId("Graph_list.csv");
-    for (int i = 0; i <= maxId; i++) {
+    for (int i = 1; i <= maxId; i++) {
         auto station = std::make_shared<Node>(i, "Node" + std::to_string(i), "Line" + std::to_string(i), 0.0, 0.0);
         network.addStation(station);
     }
