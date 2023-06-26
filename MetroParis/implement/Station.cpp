@@ -1,5 +1,5 @@
 #include<sstream>
-#include "Station.h"
+#include "Station.hpp"
 
 // Node function implementations
 Node::Node(int nodeId, const std::string& nodeName, const std::string& nodeLine, double nodeLatitude, double nodeLongitude)
@@ -36,7 +36,7 @@ double Node::getLongitude() const {
 }
 
 // Edge function implementations
-Edge::Edge(std::shared_ptr<Node> sourceNode, std::shared_ptr<Node> destNode, double edgeDistance, double edgeTravelTime, int edgeCapacity)
+Edge::Edge(std::shared_ptr<Node> sourceNode, std::shared_ptr<Node> destNode, double edgeDistance, double edgeTravelTime, int edgeCapacity,double edgeWeight)
     : source(sourceNode), destination(destNode), distance(edgeDistance), travelTime(edgeTravelTime), capacity(edgeCapacity) {}
 
 std::string Edge::getEdgeData() const {
@@ -45,7 +45,7 @@ std::string Edge::getEdgeData() const {
     oss << "Destination Node ID: " << destination->getId() << "\n";
     oss << "Distance: " << distance << "\n";
     oss << "Travel Time: " << travelTime << "\n";
-    oss << "Capacity: " << capacity << "\n"; 
+    oss << "Capacity: " << capacity << "\n";
     return oss.str();
 }
 
