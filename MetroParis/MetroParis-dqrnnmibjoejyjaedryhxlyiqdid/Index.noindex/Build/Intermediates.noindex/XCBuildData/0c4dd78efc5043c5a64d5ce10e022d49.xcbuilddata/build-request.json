@@ -1,0 +1,59 @@
+{
+  "buildCommand" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : true,
+    "targets" : null
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "a25609c5157380bfeac84d3cb6d677ba9dcfc435d18d42692d890aa989592145"
+    }
+  ],
+  "containerPath" : "/Users/chienchen/Documents/GitHub/MetroParis/MetroParis.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "indexbuild",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "macosx",
+      "sdk" : "macosx13.3",
+      "sdkVariant" : "macos",
+      "supportedArchitectures" : [
+        "arm64e",
+        "arm64",
+        "x86_64"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/chienchen/Documents/GitHub/MetroParis/MetroParis/MetroParis-dqrnnmibjoejyjaedryhxlyiqdid/Index.noindex/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/chienchen/Documents/GitHub/MetroParis/MetroParis/MetroParis-dqrnnmibjoejyjaedryhxlyiqdid/Index.noindex/Build/Products",
+      "derivedDataPath" : "/Users/chienchen/Documents/GitHub/MetroParis/MetroParis",
+      "indexDataStoreFolderPath" : "/Users/chienchen/Documents/GitHub/MetroParis/MetroParis/MetroParis-dqrnnmibjoejyjaedryhxlyiqdid/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/chienchen/Documents/GitHub/MetroParis/MetroParis/MetroParis-dqrnnmibjoejyjaedryhxlyiqdid/Index.noindex/PrecompiledHeaders",
+      "indexRegularBuildIntermediatesPath" : "/Users/chienchen/Documents/GitHub/MetroParis/MetroParis/MetroParis-dqrnnmibjoejyjaedryhxlyiqdid/Build/Intermediates.noindex",
+      "indexRegularBuildProductsPath" : "/Users/chienchen/Documents/GitHub/MetroParis/MetroParis/MetroParis-dqrnnmibjoejyjaedryhxlyiqdid/Build/Products",
+      "pchPath" : "/Users/chienchen/Documents/GitHub/MetroParis/MetroParis/MetroParis-dqrnnmibjoejyjaedryhxlyiqdid/Index.noindex/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO",
+          "ONLY_ACTIVE_ARCH" : "YES"
+        }
+      }
+    }
+  },
+  "qos" : "utility",
+  "schemeCommand" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

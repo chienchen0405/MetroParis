@@ -1,13 +1,14 @@
-//
-//  MetroData.hpp
-//  MetroParis
-//
-//  Created by 陈赤恩 on 2023/06/26.
-//
+#ifndef METRODATA_H
+#define METRODATA_H
 
-#ifndef MetroData_hpp
-#define MetroData_hpp
+#include <string>
+#include "MetroNetwork.hpp"
 
-#include <stdio.h>
+class MetroData {
+public:
+    void readFromFile(const std::string& filename, MetroNetwork& network);
+    void writeToFile(const std::string& filename, const MetroNetwork& network);
+    int getMaxStationId(const std::string& filename);
+};
 
-#endif /* MetroData_hpp */
+#endif // METRODATA_H

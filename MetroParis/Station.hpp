@@ -26,14 +26,13 @@ private:
 
 class Edge {
 public:
-    Edge(std::shared_ptr<Node> sourceNode, std::shared_ptr<Node> destNode, double edgeDistance, double edgeTravelTime, int edgeCapacity, double edgeWeight);
+    Edge(std::shared_ptr<Node> sourceNode, std::shared_ptr<Node> destNode, double edgeDistance, double edgeTravelTime, int edgeCapacity);
     std::string getEdgeData() const;
     int getCapacity() const;
     std::shared_ptr<Node> getSource() const;
     double getDistance() const;
     double getTravelTime() const;
     std::shared_ptr<Node> getDestination() const;
-    double getWeight() const;
 
 private:
     std::shared_ptr<Node> source;
@@ -41,7 +40,6 @@ private:
     double distance;
     double travelTime;
     int capacity;
-    double weight;
 };
 
 extern std::vector<std::shared_ptr<Node>> nodes;

@@ -36,7 +36,7 @@ double Node::getLongitude() const {
 }
 
 // Edge function implementations
-Edge::Edge(std::shared_ptr<Node> sourceNode, std::shared_ptr<Node> destNode, double edgeDistance, double edgeTravelTime, int edgeCapacity,double edgeWeight)
+Edge::Edge(std::shared_ptr<Node> sourceNode, std::shared_ptr<Node> destNode, double edgeDistance, double edgeTravelTime, int edgeCapacity)
     : source(sourceNode), destination(destNode), distance(edgeDistance), travelTime(edgeTravelTime), capacity(edgeCapacity) {}
 
 std::string Edge::getEdgeData() const {

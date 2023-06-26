@@ -19,10 +19,13 @@ public:
     void addEdge(std::shared_ptr<Edge> edge);
 
     std::shared_ptr<Node> getStation(int id);
-    std::vector<std::shared_ptr<Edge>> getEdgesFromStation(int id);
+    std::vector<std::shared_ptr<Edge>> getEdgesFromStation(int id) const;
     std::shared_ptr<Edge> getEdgeBetweenStations(int sourceId, int destinationId);
+    
+    std::map<int, std::shared_ptr<Node>> getNodes() const;
 
-    void displayNetwork();
+    void displayAdjacencyList();
+    void displayAdjacencyMatrix();
 };
 
 #endif // METRONETWORK_HPP

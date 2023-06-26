@@ -1,7 +1,17 @@
 #include "Station.hpp"
 #include "StationLine.hpp"
 #include "MetroNetwork.hpp"
+#include "MetroData.hpp"
 #include <memory>
+#include <iostream>
+#include <unistd.h>
+#include <limits.h>
+
+//deposite
+//basically the task 1 and task2 we work together last week to know the basic knowledge, and establish the environment for each member
+//the task 3 and task 4 also task 5 ,member Mingfu Fu, create a demo code to test, and me , leader of group1, Yutao Chen, implement all these code into project, make them readable and esay-access.and other two group member add the footnotes and make sure it`s understandable for others.
+//later we will add more comment on these code to explain everything we face problem and test for function.
+//due to now the entire work is not too much actually just some tasks of part1, is not exact contributions for each person, basically due to there are some member they haven`t knowledge of coding indiviudally to finished a task, so at the beginning i think it`s better to work together, this week we will work more time individually, and it will have more clear contributions for each person.
 
 void testStation() {
     // Create some nodes
@@ -13,7 +23,7 @@ void testStation() {
     std::cout << node2->getNodeData() << std::endl;
 
     // Create an edge
-    Edge edge(node1, node2, 1.0, 2.0, 100, 10);
+    Edge edge(node1, node2, 1.0, 2.0, 100);
 
     // Display edge data
     std::cout << edge.getEdgeData() << std::endl;
@@ -73,21 +83,61 @@ void testMetroNetwork() {
     metroNetwork.addStation(station3);
 
     // Create some edges
-    auto edge1 = std::make_shared<Edge>(station1, station2, 1.0, 2.0, 100,10);
-    auto edge2 = std::make_shared<Edge>(station2, station3, 1.5, 3.0, 100,10);
+    auto edge1 = std::make_shared<Edge>(station1, station2, 1.0, 2.0, 100);
+    auto edge2 = std::make_shared<Edge>(station2, station3, 1.5, 3.0, 100);
 
     // Add the edges to the network
     metroNetwork.addEdge(edge1);
     metroNetwork.addEdge(edge2);
 
     // Display the network
-    metroNetwork.displayNetwork();
+    std::cout << "Adjacency List:" << std::endl;
+    metroNetwork.displayAdjacencyList();
+    
+    // Display the network as an adjacency matrix
+    std::cout << "Adjacency Matrix:" << std::endl;
+    metroNetwork.displayAdjacencyMatrix();
+}
+
+void testMetroData() {
+    MetroNetwork network;
+    MetroData data;
+
+    int maxId = data.getMaxStationId("Graph_list.csv");
+    for (int i = 0; i <= maxId; i++) {
+        auto station = std::make_shared<Node>(i, "Node" + std::to_string(i), "Line" + std::to_string(i), 0.0, 0.0);
+        network.addStation(station);
+    }
+
+    data.readFromFile("Graph_list.csv", network);
+    data.writeToFile("Graph_list_output.csv", network);
+}
+
+
+int location(){
+    char cwd[PATH_MAX];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        std::cout << "Current working directory: " << cwd << std::endl;
+    } else {
+        std::cerr << "getcwd() error" << std::endl;
+        return 1;
+    }
+    return 0;
+}
+
+void testGetMaxStationId() {
+    MetroData data;
+    int maxId = data.getMaxStationId("Graph_list.csv");
+    std::cout << "Max station ID: " << maxId << std::endl;
 }
 
 
 int main() {
-    testStation();
-    testStationLine();
-    testMetroNetwork();
+    //testStation();
+    //testStationLine();
+    //testMetroNetwork();
+    //location();
+    testMetroData();
+    //testGetMaxStationId();
     return 0;
 }

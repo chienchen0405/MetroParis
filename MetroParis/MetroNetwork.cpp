@@ -26,9 +26,15 @@ std::shared_ptr<Node> MetroNetwork::getStation(int id) {
 }
 
 // Get all edges from a station by its id
-std::vector<std::shared_ptr<Edge>> MetroNetwork::getEdgesFromStation(int id) {
-    return adjacencyList[id];
+std::vector<std::shared_ptr<Edge>> MetroNetwork::getEdgesFromStation(int id) const {
+    try {
+        return adjacencyList.at(id);
+    } catch (std::out_of_range& e) {
+        std::cerr << "No edges found for station with ID " << id << std::endl;
+        return std::vector<std::shared_ptr<Edge>>();  // Return an empty vector
+    }
 }
+
 
 // Get the edge between two stations by their ids
 std::shared_ptr<Edge> MetroNetwork::getEdgeBetweenStations(int sourceId, int destinationId) {
@@ -36,14 +42,34 @@ std::shared_ptr<Edge> MetroNetwork::getEdgeBetweenStations(int sourceId, int des
 }
 
 // Display the network
-void MetroNetwork::displayNetwork() {
+void MetroNetwork::displayAdjacencyList() {
     for (const auto& nodePair : nodes) {
         std::cout << "Station: " << nodePair.second->getNodeData() << std::endl;
         std::cout << "Connected to: ";
         for (const auto& edge : adjacencyList[nodePair.first]) {
             std::cout << edge->getDestination()->getNodeData() << " ";
+            std::cout << "Edge data: " << edge->getEdgeData() << std::endl;
         }
         std::cout << std::endl;
     }
 }
+
+// Display the adjacency matrix
+void MetroNetwork::displayAdjacencyMatrix() {
+    for (const auto& row : adjacencyMatrix) {
+        for (const auto& cell : row.second) {
+            if (cell.second) {
+                std::cout << "Edge from station " << row.first
+                          << " to station " << cell.first
+                          << ": " << cell.second->getEdgeData() << std::endl;
+            }
+        }
+    }
+}
+
+std::map<int, std::shared_ptr<Node>> MetroNetwork::getNodes() const {
+    return nodes;
+}
+
+
 
