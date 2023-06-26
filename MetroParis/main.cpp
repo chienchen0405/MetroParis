@@ -92,11 +92,11 @@ void testMetroNetwork() {
 
     // Display the network
     std::cout << "Adjacency List:" << std::endl;
-    metroNetwork.displayAdjacencyList();
+    metroNetwork.displayInfoList();
     
     // Display the network as an adjacency matrix
     std::cout << "Adjacency Matrix:" << std::endl;
-    metroNetwork.displayAdjacencyMatrix();
+    metroNetwork.displayInfoMatrix();
 }
 
 void testMetroData() {
@@ -131,13 +131,46 @@ void testGetMaxStationId() {
     std::cout << "Max station ID: " << maxId << std::endl;
 }
 
+void testPredecessorsAndSuccessors() {
+    // Create a new MetroNetwork
+    MetroNetwork metroNetwork;
+
+    // Add stations to the network
+    for (int i = 1; i <= 5; i++) {
+        metroNetwork.addStation(std::make_shared<Node>(i));
+    }
+
+    // Add edges to the network
+    for (int i = 1; i < 5; i++) {
+        metroNetwork.addEdge(std::make_shared<Edge>(metroNetwork.getStation(i), metroNetwork.getStation(i + 1), i));
+    }
+
+    // Get and print the predecessors and successors of a node
+    int nodeId = 3;
+    std::vector<std::shared_ptr<Node>> predecessors = metroNetwork.getPredecessors(nodeId);
+    std::vector<std::shared_ptr<Node>> successors = metroNetwork.getSuccessors(nodeId);
+
+    std::cout << "Predecessors of node " << nodeId << ": ";
+    for (const auto& node : predecessors) {
+        std::cout << node->getId() << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Successors of node " << nodeId << ": ";
+    for (const auto& node : successors) {
+        std::cout << node->getId() << " ";
+    }
+    std::cout << std::endl;
+}
+
 
 int main() {
     //testStation();
     //testStationLine();
     //testMetroNetwork();
     //location();
-    testMetroData();
+    //testMetroData();
     //testGetMaxStationId();
+    testPredecessorsAndSuccessors();
     return 0;
 }

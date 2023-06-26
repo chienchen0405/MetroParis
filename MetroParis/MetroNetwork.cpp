@@ -41,8 +41,8 @@ std::shared_ptr<Edge> MetroNetwork::getEdgeBetweenStations(int sourceId, int des
     return adjacencyMatrix[sourceId][destinationId];
 }
 
-// Display the network
-void MetroNetwork::displayAdjacencyList() {
+// Display the info using iterative list
+void MetroNetwork::displayInfoList() {
     for (const auto& nodePair : nodes) {
         std::cout << "Station: " << nodePair.second->getNodeData() << std::endl;
         std::cout << "Connected to: ";
@@ -54,8 +54,8 @@ void MetroNetwork::displayAdjacencyList() {
     }
 }
 
-// Display the adjacency matrix
-void MetroNetwork::displayAdjacencyMatrix() {
+// Display the info using iterative matrix
+void MetroNetwork::displayInfoMatrix() {
     for (const auto& row : adjacencyMatrix) {
         for (const auto& cell : row.second) {
             if (cell.second) {
@@ -67,9 +67,47 @@ void MetroNetwork::displayAdjacencyMatrix() {
     }
 }
 
+// Display the adjacency matrix
+void MetroNetwork::displayAdjacencyMatrix() {
+    for (const auto& row : adjacencyMatrix) {
+        for (const auto& cell : row.second) {
+            if (cell.second) {
+                std::cout << "Edge from station " << row.first
+                          << " to station " << cell.first
+                          << ": " << cell.second->getEdgeData() << std::endl;
+            } else {
+                std::cout << "No edge from station " << row.first
+                          << " to station " << cell.first << std::endl;
+            }
+        }
+    }
+}
+
 std::map<int, std::shared_ptr<Node>> MetroNetwork::getNodes() const {
     return nodes;
 }
+
+// Get the predecessors of a node
+std::vector<std::shared_ptr<Node>> MetroNetwork::getPredecessors(int id) {
+    std::vector<std::shared_ptr<Node>> predecessors;
+    for (const auto& nodePair : nodes) {
+        for (const auto& edge : adjacencyList[nodePair.first]) {
+            if (edge->getDestination()->getId() == id) {
+                predecessors.push_back(nodePair.second);
+            }
+        }
+    }
+    return predecessors;
+}
+
+
+// Get the successors of a node
+std::vector<std::shared_ptr<Node>> MetroNetwork::getSuccessors(int id) {
+    // For an undirected graph, the successors are the same as the predecessors
+    return getPredecessors(id);
+}
+
+
 
 
 

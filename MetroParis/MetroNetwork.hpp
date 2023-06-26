@@ -24,8 +24,16 @@ public:
     
     std::map<int, std::shared_ptr<Node>> getNodes() const;
 
-    void displayAdjacencyList();
+    void displayInfoList();
+    void displayInfoMatrix();
+    
     void displayAdjacencyMatrix();
+    
+    // Get the predecessors of a node
+    std::vector<std::shared_ptr<Node>> getPredecessors(int id);
+
+    // Get the successors of a node
+    std::vector<std::shared_ptr<Node>> getSuccessors(int id);
 };
 
 #endif // METRONETWORK_HPP
