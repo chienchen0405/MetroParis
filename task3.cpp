@@ -1,106 +1,156 @@
-#include "task1.h"
 #include "task3.h"
+#include <fstream>
+#include <iostream>
 
 // AdjacencyMatrix class implementation
 
-AdjacencyMatrix::AdjacencyMatrix(int size) {
-    this->size = size;
+void AdjacencyMatrix::addEdge(std::shared_ptr<Node> source, std::shared_ptr<Node> destination, double distance, double travelTime, int capacity) {
+    int sourceId = source->getId();
+    int destinationId = destination->getId();
 
-    // Allocate memory for the matrix
-    matrix = new Edge**[size];
-    for (int i = 0; i < size; i++) {
-        matrix[i] = new Edge*[size];
-        for (int j = 0; j < size; j++) {
-            matrix[i][j] = nullptr; // Initialize all elements with null pointer
-        }
-    }
+    std::shared_ptr<Edge> edge = std::make_shared<Edge>(source, destination, distance, travelTime, capacity);
+    matrix[sourceId][destinationId] = edge;
+    edges.push_back(edge);  // Add the edge to the vector of edges
 }
 
-AdjacencyMatrix::~AdjacencyMatrix() {
-    // Deallocate memory for the matrix
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            delete matrix[i][j];
-        }
-        delete[] matrix[i];
-    }
-    delete[] matrix;
+std::shared_ptr<Edge> AdjacencyMatrix::getEdge(int sourceId, int destinationId) {
+    return matrix[sourceId][destinationId];
 }
 
-void AdjacencyMatrix::addEdge(Node* source, Node* destination, double distance, double travelTime, int capacity) {
-    // Create a new Edge object
-    Edge* edge = new Edge(source, destination, distance, travelTime, capacity);
-
-    // Set the edge in the matrix
-    matrix[source->getId()][destination->getId()] = edge;
-}
-
-Edge* AdjacencyMatrix::getEdge(Node* source, Node* destination) {
-    // Retrieve the edge from the matrix
-    return matrix[source->getId()][destination->getId()];
+int AdjacencyMatrix::getSize() const {
+    return static_cast<int>(nodes.size());
 }
 
 void AdjacencyMatrix::displayMatrix() {
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            if (matrix[i][j] != nullptr) {
-                std::cout << "Edge exists between Node " << i << " and Node " << j << ": Yes" << std::endl;
-                matrix[i][j]->displayEdge();
-            }
-            else {
-                std::cout << "Edge exists between Node " << i << " and Node " << j << ": No" << std::endl;
-            }
+    for (const auto& sourcePair : matrix) {
+        for (const auto& destinationPair : sourcePair.second) {
+            std::shared_ptr<Edge> edge = destinationPair.second;
+            std::cout << "Source Node ID: " << edge->getSource()->getId() << std::endl;
+            std::cout << "Destination Node ID: " << edge->getDestination()->getId() << std::endl;
+            std::cout << "Distance: " << edge->getDistance() << std::endl;
+            std::cout << "Travel Time: " << edge->getTravelTime() << std::endl;
+            std::cout << "Capacity: " << edge->getCapacity() << std::endl;
             std::cout << std::endl;
         }
     }
+}
+
+void AdjacencyMatrix::readFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file) {
+        std::cerr << "Unable to open file: " << filename << std::endl;
+        return;
+    }
+
+    int numNodes, numEdges;
+    file >> numNodes >> numEdges;
+
+    // Create Node objects
+    for (int i = 0; i < numNodes; i++) {
+        nodes.push_back(std::make_shared<Node>(i, "Node" + std::to_string(i), "Line" + std::to_string(i), 0.0, 0.0));
+    }
+
+    // Create Edge objects and add them to the adjacency matrix
+    for (int i = 0; i < numEdges; i++) {
+        int sourceId, destinationId, value;
+        file >> sourceId >> destinationId >> value;
+
+        addEdge(nodes[sourceId], nodes[destinationId], value, 0, 0);
+    }
+
+    file.close();
+}
+
+void AdjacencyMatrix::writeToFile(const std::string& filename) {
+    std::ofstream file(filename);
+    if (!file) {
+        std::cerr << "Unable to open file: " << filename << std::endl;
+        return;
+    }
+
+    file << nodes.size() << " " << edges.size() << "\n";
+
+    for (const auto& edge : edges) {
+        file << edge->getSource()->getId() << " " << edge->getDestination()->getId() << " " << edge->getDistance() << "\n";
+    }
+
+    file.close();
 }
 
 // AdjacencyList class implementation
 
-AdjacencyList::AdjacencyList(int size) {
-    this->size = size;
+void AdjacencyList::addEdge(std::shared_ptr<Node> source, std::shared_ptr<Node> destination, double distance, double travelTime, int capacity) {
+    int sourceId = source->getId();
 
-    // Resize the vector to hold 'size' number of elements
-    list.resize(size);
+    std::shared_ptr<Edge> edge = std::make_shared<Edge>(source, destination,distance, travelTime, capacity);
+    list[sourceId].push_back(edge);
+    edges.push_back(edge);  // Add the edge to the vector of edges
 }
 
-AdjacencyList::~AdjacencyList() {
-    // Deallocate memory for each linked list
-    for (int i = 0; i < size; i++) {
-        for (size_t j = 0; j < list[i].size(); j++) {
-            delete list[i][j];
-        }
-    }
-}
-
-void AdjacencyList::addEdge(Node* source, Node* destination, double distance, double travelTime, int capacity) {
-    // Create a new Edge object
-    Edge* edge = new Edge(source, destination, distance, travelTime, capacity);
-
-    // Add the edge to the source node's list
-    list[source->getId()].push_back(edge);
-}
-
-Edge* AdjacencyList::getEdge(Node* source, Node* destination) {
-    // Search for the edge in the source node's list
-    for (Edge* edge : list[source->getId()]) {
-        if (edge->getDestination() == destination) {
+std::shared_ptr<Edge> AdjacencyList::getEdge(int sourceId, int destinationId) {
+    for (const auto& edge : list[sourceId]) {
+        if (edge->getDestination()->getId() == destinationId) {
             return edge;
         }
     }
-    return nullptr; // Edge not found
+    return nullptr;
+}
+
+int AdjacencyList::getSize() const {
+    return static_cast<int>(nodes.size());
 }
 
 void AdjacencyList::displayList() {
-    for (int i = 0; i < size; i++) {
-        for (size_t j = 0; j < list[i].size(); j++) {
-            Edge* edge = list[i][j];
-            std::cout << "Source Node: " << edge->getSource()->getName() << std::endl;
-            std::cout << "Destination Node: " << edge->getDestination()->getName() << std::endl;
-            std::cout << "Distance: " << edge->getDistance() << " meters" << std::endl;
-            std::cout << "Travel Time: " << edge->getTravelTime() << " minutes" << std::endl;
-            std::cout << "Capacity: " << edge->getCapacity() << " passengers" << std::endl;
+    for (const auto& pair : list) {
+        for (const auto& edge : pair.second) {
+            std::cout << "Source Node ID: " << edge->getSource()->getId() << std::endl;
+            std::cout << "Destination Node ID: " << edge->getDestination()->getId() << std::endl;
+            std::cout << "Distance: " << edge->getDistance() << std::endl;
+            std::cout << "Travel Time: " << edge->getTravelTime() << std::endl;
+            std::cout << "Capacity: " << edge->getCapacity() << std::endl;
             std::cout << std::endl;
         }
     }
+}
+
+void AdjacencyList::readFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file) {
+        std::cerr << "Unable to open file: " << filename << std::endl;
+        return;
+    }
+
+    int numNodes, numEdges;
+    file >> numNodes >> numEdges;
+
+    // Create Node objects
+    for (int i = 0; i < numNodes; i++) {
+        nodes.push_back(std::make_shared<Node>(i, "Node" + std::to_string(i), "Line" + std::to_string(i), 0.0, 0.0));
+    }
+
+    // Create Edge objects and add them to the adjacency list
+    for (int i = 0; i < numEdges; i++) {
+        int sourceId, destinationId, value;
+        file >> sourceId >> destinationId >> value;
+
+        addEdge(nodes[sourceId], nodes[destinationId], value, 0, 0);
+    }
+
+    file.close();
+}
+
+void AdjacencyList::writeToFile(const std::string& filename) {
+    std::ofstream file(filename);
+    if (!file) {
+        std::cerr << "Unable to open file: " << filename << std::endl;
+        return;
+    }
+
+    file << nodes.size() << " " << edges.size() << "\n";
+
+    for (const auto& edge : edges) {
+        file << edge->getSource()->getId() << " " << edge->getDestination()->getId() << " " << edge->getDistance() << "\n";
+    }
+
+    file.close();
 }
