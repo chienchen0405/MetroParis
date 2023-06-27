@@ -174,11 +174,11 @@ void testPredecessorsAndSuccessors() {
 
 
 int main() {
-    //testStation();
-    //testStationLine();
-    //testMetroNetwork();
+    testStation();
+    testStationLine();
+    testMetroNetwork();
     //location();
-    //testMetroData();
+    testMetroData();
     //testGetMaxStationId();
     testPredecessorsAndSuccessors();
     return 0;

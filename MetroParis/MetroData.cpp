@@ -66,11 +66,6 @@ void MetroData::readFromFile(const std::string& filename, MetroNetwork& network)
     }
 }
 
-
-
-
-
-
 void MetroData::writeToFile(const std::string& filename, const MetroNetwork& network) {
     std::ofstream file(filename);
     if (!file) {
@@ -79,7 +74,13 @@ void MetroData::writeToFile(const std::string& filename, const MetroNetwork& net
     }
 
     for (const auto& nodePair : network.getNodes()) {
-        for (const auto& edge : network.getEdgesFromStation(nodePair.first)) {
+        auto edges = network.getEdgesFromStation(nodePair.first);
+        if (edges.empty()) {
+            std::cerr << "No edges found for station with ID " << nodePair.first << "." << std::endl;
+            continue;
+        }
+
+        for (const auto& edge : edges) {
             file << edge->getSource()->getId() << ","
                  << edge->getDestination()->getId() << ","
                  << edge->getDistance() << "\n";
@@ -109,6 +110,8 @@ int MetroData::getMaxStationId(const std::string& filename) {
                 }
             } catch (std::invalid_argument& e) {
                 // Ignore invalid arguments
+            } catch (std::out_of_range& e) {
+                std::cerr << "Out of range in line: " << line << std::endl;
             }
         }
     }

@@ -5,11 +5,20 @@ MetroNetwork::MetroNetwork() {}
 
 // Add a station to the network
 void MetroNetwork::addStation(std::shared_ptr<Node> station) {
+    if (station == nullptr) {
+        std::cerr << "Error: Attempted to add a null station to the network." << std::endl;
+        return;
+    }
     nodes[station->getId()] = station;
 }
 
+
 // Add an edge to the network
 void MetroNetwork::addEdge(std::shared_ptr<Edge> edge) {
+    if (edge == nullptr) {
+        std::cerr << "Error: Attempted to add a null edge to the network." << std::endl;
+        return;
+    }
     int sourceId = edge->getSource()->getId();
     int destinationId = edge->getDestination()->getId();
 
@@ -25,22 +34,29 @@ void MetroNetwork::addEdge(std::shared_ptr<Edge> edge) {
 
 // Get a station by its id
 std::shared_ptr<Node> MetroNetwork::getStation(int id) {
+    if (nodes.find(id) == nodes.end()) {
+        std::cerr << "Error: No station found with ID " << id << "." << std::endl;
+        return nullptr;
+    }
     return nodes[id];
 }
 
 // Get all edges from a station by its id
 std::vector<std::shared_ptr<Edge>> MetroNetwork::getEdgesFromStation(int id) const {
-    try {
-        return adjacencyList.at(id);
-    } catch (std::out_of_range& e) {
-        std::cerr << "No edges found for station with ID " << id << std::endl;
+    if (adjacencyList.find(id) == adjacencyList.end()) {
+        std::cerr << "Error: No edges found for station with ID " << id << "." << std::endl;
         return std::vector<std::shared_ptr<Edge>>();  // Return an empty vector
     }
+    return adjacencyList.at(id);
 }
 
 
 // Get the edge between two stations by their ids
 std::shared_ptr<Edge> MetroNetwork::getEdgeBetweenStations(int sourceId, int destinationId) {
+    if (adjacencyMatrix.find(sourceId) == adjacencyMatrix.end() || adjacencyMatrix[sourceId].find(destinationId) == adjacencyMatrix[sourceId].end()) {
+        std::cerr << "Error: No edge found between stations with IDs " << sourceId << " and " << destinationId << "." << std::endl;
+        return nullptr;
+    }
     return adjacencyMatrix[sourceId][destinationId];
 }
 
