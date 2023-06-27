@@ -136,13 +136,20 @@ void testPredecessorsAndSuccessors() {
     MetroNetwork metroNetwork;
 
     // Add stations to the network
+    std::string nodeName = "Station";  // Example station name
+    std::string nodeLine = "Line";  // Example line name
+    double nodeLatitude = 40.7128;  // Example latitude (New York City)
+    double nodeLongitude = -74.0060;  // Example longitude (New York City)
     for (int i = 1; i <= 5; i++) {
-        metroNetwork.addStation(std::make_shared<Node>(i));
+        metroNetwork.addStation(std::make_shared<Node>(i, nodeName + std::to_string(i), nodeLine, nodeLatitude, nodeLongitude));
     }
 
     // Add edges to the network
+    double edgeDistance = 5.0;  // Example distance between stations
+    double edgeTravelTime = 10.0;  // Example travel time between stations
+    int edgeCapacity = 100;  // Example capacity of the edge (e.g., maximum number of passengers)
     for (int i = 1; i < 5; i++) {
-        metroNetwork.addEdge(std::make_shared<Edge>(metroNetwork.getStation(i), metroNetwork.getStation(i + 1), i));
+        metroNetwork.addEdge(std::make_shared<Edge>(metroNetwork.getStation(i), metroNetwork.getStation(i + 1), edgeDistance, edgeTravelTime, edgeCapacity));
     }
 
     // Get and print the predecessors and successors of a node
@@ -162,6 +169,8 @@ void testPredecessorsAndSuccessors() {
     }
     std::cout << std::endl;
 }
+
+
 
 
 int main() {

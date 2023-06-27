@@ -16,6 +16,9 @@ void MetroNetwork::addEdge(std::shared_ptr<Edge> edge) {
     // Add to adjacency list
     adjacencyList[sourceId].push_back(edge);
 
+    // Add to reverse adjacency list
+    reverseAdjacencyList[destinationId].push_back(edge);
+
     // Add to adjacency matrix
     adjacencyMatrix[sourceId][destinationId] = edge;
 }
@@ -90,22 +93,23 @@ std::map<int, std::shared_ptr<Node>> MetroNetwork::getNodes() const {
 // Get the predecessors of a node
 std::vector<std::shared_ptr<Node>> MetroNetwork::getPredecessors(int id) {
     std::vector<std::shared_ptr<Node>> predecessors;
-    for (const auto& nodePair : nodes) {
-        for (const auto& edge : adjacencyList[nodePair.first]) {
-            if (edge->getDestination()->getId() == id) {
-                predecessors.push_back(nodePair.second);
-            }
-        }
+    for (const auto& edge : reverseAdjacencyList[id]) {
+        predecessors.push_back(edge->getSource());
     }
     return predecessors;
 }
 
 
+
 // Get the successors of a node
 std::vector<std::shared_ptr<Node>> MetroNetwork::getSuccessors(int id) {
-    // For an undirected graph, the successors are the same as the predecessors
-    return getPredecessors(id);
+    std::vector<std::shared_ptr<Node>> successors;
+    for (const auto& edge : adjacencyList[id]) {
+        successors.push_back(edge->getDestination());
+    }
+    return successors;
 }
+
 
 
 

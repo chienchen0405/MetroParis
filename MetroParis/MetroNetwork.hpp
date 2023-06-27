@@ -11,6 +11,7 @@ private:
     std::map<int, std::shared_ptr<Node>> nodes;
     std::map<int, std::vector<std::shared_ptr<Edge>>> adjacencyList;
     std::map<int, std::map<int, std::shared_ptr<Edge>>> adjacencyMatrix;
+    std::map<int, std::vector<std::shared_ptr<Edge>>> reverseAdjacencyList;
 
 public:
     MetroNetwork();
