@@ -36,6 +36,8 @@ double Node::getLongitude() const {
 }
 
 // Edge function implementations
+//Instead of raw pointers, consider using smart pointers,for the source and destination nodes in the Edge class.
+//This will help manage memory more effectively removing nodes from the list and avoid potential memory leaks or dangling pointer issues.
 Edge::Edge(std::shared_ptr<Node> sourceNode, std::shared_ptr<Node> destNode, double edgeDistance, double edgeTravelTime, int edgeCapacity)
     : source(sourceNode), destination(destNode), distance(edgeDistance), travelTime(edgeTravelTime), capacity(edgeCapacity) {}
 
