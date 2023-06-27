@@ -87,7 +87,8 @@ void MetroData::writeToFile(const std::string& filename, const MetroNetwork& net
         }
     }
 }
-
+//This function reads the CSV file line by line, extracts the source ID from each line, and keeps track of the maximum source ID found. It returns the maximum source ID when it's done.
+// and added to the MetroNetwork
 int MetroData::getMaxStationId(const std::string& filename) {
     std::ifstream file(filename);
     if (!file) {

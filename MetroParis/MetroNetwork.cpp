@@ -86,7 +86,7 @@ void MetroNetwork::displayInfoMatrix() {
     }
 }
 
-// Display the adjacency matrix
+// Display the adjacency matrix from read file.
 void MetroNetwork::displayAdjacencyMatrix() {
     for (const auto& row : adjacencyMatrix) {
         for (const auto& cell : row.second) {
@@ -107,6 +107,7 @@ std::map<int, std::shared_ptr<Node>> MetroNetwork::getNodes() const {
 }
 
 // Get the predecessors of a node
+// Each edge in the vector for a node N is an edge leading to N.
 std::vector<std::shared_ptr<Node>> MetroNetwork::getPredecessors(int id) {
     std::vector<std::shared_ptr<Node>> predecessors;
     for (const auto& edge : reverseAdjacencyList[id]) {
@@ -118,6 +119,7 @@ std::vector<std::shared_ptr<Node>> MetroNetwork::getPredecessors(int id) {
 
 
 // Get the successors of a node
+// the set of all nodes with an edge from N
 std::vector<std::shared_ptr<Node>> MetroNetwork::getSuccessors(int id) {
     std::vector<std::shared_ptr<Node>> successors;
     for (const auto& edge : adjacencyList[id]) {
