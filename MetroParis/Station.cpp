@@ -1,7 +1,7 @@
 #include<sstream>
 #include "Station.hpp"
 
-// Node function implementations 
+// Node function implementations
 
 // Constructor for the Node class
 Node::Node(int nodeId, const std::string& nodeName, const std::string& nodeLine, double nodeLatitude, double nodeLongitude)
@@ -85,5 +85,5 @@ std::shared_ptr<Node> Edge::getDestination() const {
     return destination; // Return the destination Node of the Edge
 }
 
-std::vector<std::shared_ptr<Node>> nodes; // Vector to store shared pointers to Node objects
-std::vector<Edge> edges; // Vector to store Edge objects
+std::vector<std::shared_ptr<Node>> nodes;  // Vector to store shared pointers to Node objects
+std::vector<Edge> edges;  // Vector to store Edge objects
