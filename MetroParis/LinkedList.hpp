@@ -5,26 +5,26 @@
 
 template<typename T>
 struct Cell {
-    std::shared_ptr<T> value;
-    std::shared_ptr<Cell<T>> next;
+    std::shared_ptr<T> value;// Value stored in the cell
+    std::shared_ptr<Cell<T>> next;// Pointer to the next cell
 };
 
 template<typename T>
 class LinkedList {
 private:
-    std::shared_ptr<Cell<T>> head;
+    std::shared_ptr<Cell<T>> head;// Pointer to the head of the linked list
 public:
-    LinkedList() : head(nullptr) {}
+    LinkedList() : head(nullptr) {}  // Constructor to initialize the head to nullptr
 
     void insertAtBeginning(std::shared_ptr<T> value) {
-        std::shared_ptr<Cell<T>> cell = std::make_shared<Cell<T>>();
-        cell->value = value;
-        cell->next = head;
-        head = cell;
+        std::shared_ptr<Cell<T>> cell = std::make_shared<Cell<T>>(); // Create a new cell
+        cell->value = value;// Assign the value to the cell
+        cell->next = head; // Set the next pointer of the new cell to the current head
+        head = cell;// Set the head to the new cell
     }
 
     void insertAtEnd(std::shared_ptr<T> value) {
-        std::shared_ptr<Cell<T>> cell = std::make_shared<Cell<T>>();
+        std::shared_ptr<Cell<T>> cell = std::make_shared<Cell<T>>(); 
         cell->value = value;
         if (head == nullptr) {
             head = cell;
