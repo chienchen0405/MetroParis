@@ -9,7 +9,13 @@ void MetroNetwork::addStation(std::shared_ptr<Node> station) {
         std::cerr << "Error: Attempted to add a null station to the network." << std::endl;
         return;
     }
+    if (nodes.find(station->getId()) != nodes.end()) {
+        std::cerr << "Error: A station with ID " << station->getId() << " already exists." << std::endl;
+        return;
+    }
     nodes[station->getId()] = station;
+    // Debug print statement
+    std::cout << "Added station: " << station->getNodeData() << std::endl;
 }
 
 
@@ -21,7 +27,10 @@ void MetroNetwork::addEdge(std::shared_ptr<Edge> edge) {
     }
     int sourceId = edge->getSource()->getId();
     int destinationId = edge->getDestination()->getId();
-
+    if (adjacencyMatrix.find(sourceId) != adjacencyMatrix.end() && adjacencyMatrix[sourceId].find(destinationId) != adjacencyMatrix[sourceId].end()) {
+        std::cerr << "Error: An edge between stations with IDs " << sourceId << " and " << destinationId << " already exists." << std::endl;
+        return;
+    }
     // Add to adjacency list
     adjacencyList[sourceId].push_back(edge);
 
@@ -30,15 +39,9 @@ void MetroNetwork::addEdge(std::shared_ptr<Edge> edge) {
 
     // Add to adjacency matrix
     adjacencyMatrix[sourceId][destinationId] = edge;
-}
-
-// Get a station by its id
-std::shared_ptr<Node> MetroNetwork::getStation(int id) {
-    if (nodes.find(id) == nodes.end()) {
-        std::cerr << "Error: No station found with ID " << id << "." << std::endl;
-        return nullptr;
-    }
-    return nodes[id];
+    
+    // Debug print statement
+    std::cout << "Added edge: " << edge->getEdgeData() << std::endl;
 }
 
 // Get all edges from a station by its id
@@ -49,7 +52,6 @@ std::vector<std::shared_ptr<Edge>> MetroNetwork::getEdgesFromStation(int id) con
     }
     return adjacencyList.at(id);
 }
-
 
 // Get the edge between two stations by their ids
 std::shared_ptr<Edge> MetroNetwork::getEdgeBetweenStations(int sourceId, int destinationId) {
