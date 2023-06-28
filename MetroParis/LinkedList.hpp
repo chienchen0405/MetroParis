@@ -94,7 +94,7 @@ public:
     
     void destroyListRecursive() {
         destroyListRecursiveHelper(head); // Call the recursive helper function
-
+}
     std::shared_ptr<Cell<T>> getHead() {
         return head; // Return the head of the linked list
     }
