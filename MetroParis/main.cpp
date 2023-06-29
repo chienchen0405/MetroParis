@@ -54,7 +54,7 @@ void testShortestPath() {
 
     // Find the shortest path from a source node to a destination node
     int sourceId = 101033; // Change this to your actual source node ID
-    int destinationId = 102035; // Change this to your actual destination node ID
+    int destinationId = 103035; // Change this to your actual destination node ID
 
     auto result = shortestPath.findShortestPath(network, sourceId, destinationId);
 
@@ -62,7 +62,7 @@ void testShortestPath() {
     std::cout << "Total distance: " << result.first << "\n";
     std::cout << "Nodes along the shortest path: ";
     for (const auto& node : result.second) {
-        std::cout << node->getId() << " ";
+        std::cout << node->getGeoPoint() << " ";
     }
     std::cout << "\n";
 }
