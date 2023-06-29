@@ -9,6 +9,7 @@
 #include <memory>
 #include <unistd.h>
 #include <limits.h>
+#include <sstream>
 #include <fstream>
 
 
@@ -61,16 +62,21 @@ void testShortestPath() {
     auto result = shortestPath.findShortestPath(network, sourceId, destinationId);
 
     // Open an output file stream
-    std::ofstream outfile("output.txt");
-    
-    // Write the total distance to the file
-    outfile << result.first << "\n";
+    std::ofstream outfile("output.csv");
 
-    // Write the node IDs along the shortest path to the file
+    // Write the header to the file
+    outfile << "Station Name,Latitude,Longitude\n";
+
+    // Write the station names and GeoPoints to the file
     for (const auto& node : result.second) {
-        outfile << node->getGeoPoint() << " ";
+        std::string geoPoint = node->getGeoPoint();
+        size_t commaPos = geoPoint.find(",");
+        
+        std::string latitude = geoPoint.substr(1, commaPos - 1); // Start at 1 to skip the first quote
+        std::string longitude = geoPoint.substr(commaPos + 1, geoPoint.length() - commaPos - 2); // Subtract 2 to skip the last quote
+
+        outfile << node->getName() << "," << latitude << "," << longitude << "\n";
     }
-    outfile << "\n";
 
     // Close the file stream
     outfile.close();
