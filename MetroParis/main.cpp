@@ -9,6 +9,8 @@
 #include <memory>
 #include <unistd.h>
 #include <limits.h>
+#include <fstream>
+
 
 
 //deposite
@@ -19,25 +21,25 @@
 
 
 
-void testReadFromFile() {
-    MetroNetwork network;
-    MetroData metroData;
+// void testReadFromFile() {
+//     MetroNetwork network;
+//     MetroData metroData;
 
-    // Read from file
-    metroData.readFromFile("test.csv", network);
+//     // Read from file
+//     metroData.readFromFile("test.csv", network);
 
-    // Write to file
-    metroData.writeToFile("test_ouput.csv", network);
+//     // Write to file
+//     metroData.writeToFile("test_ouput.csv", network);
 
-    // Display the info using iterative list
-    //network.displayInfoList();
+//     // Display the info using iterative list
+//     //network.displayInfoList();
 
-    // Display the info using iterative matrix
-    //network.displayInfoMatrix();
+//     // Display the info using iterative matrix
+//     //network.displayInfoMatrix();
 
-    // Display the adjacency matrix
-    network.displayAdjacencyMatrix();
-}
+//     // Display the adjacency matrix
+//     network.displayAdjacencyMatrix();
+// }
 
 void testShortestPath() {
     // Create a MetroData object to read from the CSV file
@@ -58,13 +60,20 @@ void testShortestPath() {
 
     auto result = shortestPath.findShortestPath(network, sourceId, destinationId);
 
-    // Print the total distance and the node IDs along the shortest path
-    std::cout << "Total distance: " << result.first << "\n";
-    std::cout << "Nodes along the shortest path: ";
+    // Open an output file stream
+    std::ofstream outfile("output.txt");
+    
+    // Write the total distance to the file
+    outfile << result.first << "\n";
+
+    // Write the node IDs along the shortest path to the file
     for (const auto& node : result.second) {
-        std::cout << node->getGeoPoint() << " ";
+        outfile << node->getGeoPoint() << " ";
     }
-    std::cout << "\n";
+    outfile << "\n";
+
+    // Close the file stream
+    outfile.close();
 }
 
 
