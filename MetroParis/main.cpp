@@ -1,11 +1,15 @@
 #include "Station.hpp"
 #include "StationLine.hpp"
+
 #include "MetroNetwork.hpp"
+#include "ShortestPath.hpp"
 #include "MetroData.hpp"
-#include <memory>
+
 #include <iostream>
+#include <memory>
 #include <unistd.h>
 #include <limits.h>
+
 
 //deposite
 //basically the task 1 and task2 we work together last week to know the basic knowledge, and establish the environment for each member
@@ -13,193 +17,61 @@
 //later we will add more comment on these code to explain everything we face problem and test for function.
 //due to now the entire work is not too much actually just some tasks of part1, is not exact contributions for each person, basically due to there are some member they haven`t knowledge of coding indiviudally to finished a task, so at the beginning i think it`s better to work together, this week we will work more time individually, and it will have more clear contributions for each person.
 
-void testStation() {
-    // Create some nodes
-    std::shared_ptr<Node> node1 = std::make_shared<Node>(1, "Station1", 48.8566, 2.3522);
-    std::shared_ptr<Node> node2 = std::make_shared<Node>(2, "Station2", 48.8534, 2.3488);
 
-    // Display node data
-    std::cout << node1->getNodeData() << std::endl;
-    std::cout << node2->getNodeData() << std::endl;
 
-    // Create an edge
-    Edge edge(node1, node2, 1.0, 2.0, 100, "Line1");
+void testReadFromFile() {
+    MetroNetwork network;
+    MetroData metroData;
 
-    // Display edge data
-    std::cout << edge.getEdgeData() << std::endl;
+    // Read from file
+    metroData.readFromFile("test.csv", network);
+
+    // Write to file
+    metroData.writeToFile("test_ouput.csv", network);
+
+    // Display the info using iterative list
+    //network.displayInfoList();
+
+    // Display the info using iterative matrix
+    //network.displayInfoMatrix();
+
+    // Display the adjacency matrix
+    network.displayAdjacencyMatrix();
 }
 
-//void testStationLine() {
-//    // Create a Line object
-//    Line line;
-//
-//    // Create some Node objects
-//    std::shared_ptr<Node> station1 = std::make_shared<Node>(1, "Station 1", "Line 1", 48.8566, 2.3522);
-//    std::shared_ptr<Node> station2 = std::make_shared<Node>(2, "Station 2", "Line 1", 48.8576, 2.3532);
-//    std::shared_ptr<Node> station3 = std::make_shared<Node>(3, "Station 3", "Line 1", 48.8586, 2.3542);
-//
-//    // Insert stations at the beginning of the line
-//    line.insertHeadStation(station1);
-//    line.insertHeadStation(station2);
-//
-//    // Insert a station at the end of the line
-//    line.insertEndStation(station3);
-//
-//    // Display the line
-//    line.displayLine();
-//
-//    // Pop a station from the beginning of the line
-//    std::shared_ptr<Node> poppedStation = line.popHeadStation();
-//    if (poppedStation != nullptr) {
-//        std::cout << "Popped station from the beginning: " << poppedStation->getNodeData() << std::endl;
-//    }
-//
-//    // Pop a station from the end of the line
-//    poppedStation = line.popEndStation();
-//    if (poppedStation != nullptr) {
-//        std::cout << "Popped station from the end: " << poppedStation->getNodeData() << std::endl;
-//    }
-//
-//    // Search for a station in the line
-//    bool found = line.searchStation(station1);
-//    std::cout << "Station 1 found in line: " << (found ? "Yes" : "No") << std::endl;
-//
-//    // Destroy the line
-//    line.destroyLineIterative();
-//}
+void testShortestPath() {
+    // Create a MetroData object to read from the CSV file
+    MetroData metroData;
 
-//void testMetroNetwork() {
-//    // Create a MetroNetwork
-//    MetroNetwork metroNetwork;
-//
-//    // Create some stations
-//    auto station1 = std::make_shared<Node>(1, "Station1", "Line1", 48.8566, 2.3522);
-//    auto station2 = std::make_shared<Node>(2, "Station2", "Line1", 48.853, 2.35);
-//    auto station3 = std::make_shared<Node>(3, "Station3", "Line2", 48.860, 2.344);
-//
-//    // Add the stations to the network
-//    metroNetwork.addStation(station1);
-//    metroNetwork.addStation(station2);
-//    metroNetwork.addStation(station3);
-//
-//    // Create some edges
-//    auto edge1 = std::make_shared<Edge>(station1, station2, 1.0, 2.0, 100);
-//    auto edge2 = std::make_shared<Edge>(station2, station3, 1.5, 3.0, 100);
-//
-//    // Add the edges to the network
-//    metroNetwork.addEdge(edge1);
-//    metroNetwork.addEdge(edge2);
-//
-//    // Display the network
-//    std::cout << "Adjacency List:" << std::endl;
-//    metroNetwork.displayInfoList();
-//
-//    // Display the network as an adjacency matrix
-//    std::cout << "Adjacency Matrix:" << std::endl;
-//    metroNetwork.displayInfoMatrix();
-//}
-//
-void testReadFromFile() {
-    // Create a MetroNetwork object
+    // Create a MetroNetwork object to hold the network data
     MetroNetwork network;
 
-    // Create a MetroData object
-    MetroData data;
+    // Read from the CSV file into the MetroNetwork object
+    metroData.readFromFile("test.csv", network);
 
-    // Read data from a CSV file and populate the MetroNetwork object
-    data.readFromFile("Graph_list - Graph_list 1.csv", network);
+    // Create a ShortestPath object to find shortest paths in the network
+    ShortestPath shortestPath;
 
-    // Print the data for all nodes and edges in the network
-    for (const auto& nodePair : network.getNodes()) {
-        std::cout << "Node ID: " << nodePair.first << std::endl;
-        std::cout << "Node Name: " << nodePair.second->getName() << std::endl;
-        std::cout << "Node Latitude: " << nodePair.second->getLatitude() << std::endl;
-        std::cout << "Node Longitude: " << nodePair.second->getLongitude() << std::endl;
-        std::cout << "Connected to: ";
-        for (const auto& edge : network.getEdgesFromStation(nodePair.first)) {
-            std::cout << edge->getDestination()->getId() << " ";
-        }
-        std::cout << std::endl;
+    // Find the shortest path from a source node to a destination node
+    int sourceId = 101033; // Change this to your actual source node ID
+    int destinationId = 102035; // Change this to your actual destination node ID
+
+    auto result = shortestPath.findShortestPath(network, sourceId, destinationId);
+
+    // Print the total distance and the node IDs along the shortest path
+    std::cout << "Total distance: " << result.first << "\n";
+    std::cout << "Nodes along the shortest path: ";
+    for (const auto& node : result.second) {
+        std::cout << node->getId() << " ";
     }
-
-    // Print the maximum station ID
-    int maxId = data.getMaxStationId("Graph_list - Graph_list 1.csv");
-    std::cout << "Max station ID: " << maxId << std::endl;
-
-    // Write the data back to a different CSV file to verify that the data was read and processed correctly
-    data.writeToFile("Graph_list - Graph_list 1——output_data.csv", network);
+    std::cout << "\n";
 }
-
-
-//
-//
-//int location(){
-//    char cwd[PATH_MAX];
-//    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-//        std::cout << "Current working directory: " << cwd << std::endl;
-//    } else {
-//        std::cerr << "getcwd() error" << std::endl;
-//        return 1;
-//    }
-//    return 0;
-//}
-//
-void testGetMaxStationId() {
-    MetroData data;
-    int maxId = data.getMaxStationId("Graph_list - Graph_list 1.csv");
-    std::cout << "Max station ID: " << maxId << std::endl;
-}
-//
-//void testPredecessorsAndSuccessors() {
-//    // Create a new MetroNetwork
-//    MetroNetwork metroNetwork;
-//
-//    // Add stations to the network
-//    std::string nodeName = "Station";  // Example station name
-//    std::string nodeLine = "Line";  // Example line name
-//    double nodeLatitude = 40.7128;  // Example latitude (New York City)
-//    double nodeLongitude = -74.0060;  // Example longitude (New York City)
-//    for (int i = 1; i <= 5; i++) {
-//        metroNetwork.addStation(std::make_shared<Node>(i, nodeName + std::to_string(i), nodeLine, nodeLatitude, nodeLongitude));
-//    }
-//
-//    // Add edges to the network
-//    double edgeDistance = 5.0;  // Example distance between stations
-//    double edgeTravelTime = 10.0;  // Example travel time between stations
-//    int edgeCapacity = 100;  // Example capacity of the edge (e.g., maximum number of passengers)
-//    for (int i = 1; i < 5; i++) {
-//        metroNetwork.addEdge(std::make_shared<Edge>(metroNetwork.getStation(i), metroNetwork.getStation(i + 1), edgeDistance, edgeTravelTime, edgeCapacity));
-//    }
-//
-//    // Get and print the predecessors and successors of a node
-//    int nodeId = 3;
-//    std::vector<std::shared_ptr<Node>> predecessors = metroNetwork.getPredecessors(nodeId);
-//    std::vector<std::shared_ptr<Node>> successors = metroNetwork.getSuccessors(nodeId);
-//
-//    std::cout << "Predecessors of node " << nodeId << ": ";
-//    for (const auto& node : predecessors) {
-//        std::cout << node->getId() << " ";
-//    }
-//    std::cout << std::endl;
-//
-//    std::cout << "Successors of node " << nodeId << ": ";
-//    for (const auto& node : successors) {
-//        std::cout << node->getId() << " ";
-//    }
-//    std::cout << std::endl;
-//}
 
 
 
 
 int main() {
-    //testStation();
-    //testStationLine();
-    //testMetroNetwork();
-    //location();
-    //testMetroData();
-    //testGetMaxStationId();
-    //testPredecessorsAndSuccessors();
-    testReadFromFile();
+    //testReadFromFile();
+    testShortestPath();
     return 0;
 }

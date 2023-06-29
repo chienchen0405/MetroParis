@@ -2,8 +2,8 @@
 #include "Station.hpp"
 
 // Node function implementations
-Node::Node(int nodeId, const std::string& nodeName, double nodeLatitude, double nodeLongitude)
-    : id(nodeId), name(nodeName), latitude(nodeLatitude), longitude(nodeLongitude) {}
+Node::Node(int curNode, const std::string& curName, const std::string& curGeoPoint)
+    : id(curNode), name(curName), geoPoint(curGeoPoint) {}
 
 
 // Function to get the string representation of the Node's data
@@ -11,8 +11,7 @@ std::string Node::getNodeData() const {
     std::ostringstream oss;
     oss << "Node ID: " << id << "\n"; // Append the ID of the Node
     oss << "Node Name: " << name << "\n"; // Append the name of the Node
-    oss << "Node Latitude: " << latitude << "\n"; // Append the latitude of the Node
-    oss << "Node Longitude: " << longitude << "\n"; // Append the longitude of the Node
+    oss << "Node GeoPoint: " << geoPoint << "\n"; // Append the GeoPoint of the Node
     return oss.str(); // Return the string representation of the Node's data
 }
 
@@ -26,19 +25,15 @@ std::string Node::getName() const {
     return name; // Return the name of the Node
 }
 
-double Node::getLatitude() const {
-    return latitude; // Return the latitude of the Node
-}
-
-// Function to get the longitude of the Node
-double Node::getLongitude() const {
-    return longitude; // Return the longitude of the Node
+// Function to get the GeoPoint of the Node
+std::string Node::getGeoPoint() const {
+    return geoPoint; // Return the GeoPoint of the Node
 }
 
 // Edge function implementations
 
-Edge::Edge(std::shared_ptr<Node> sourceNode, std::shared_ptr<Node> destNode, double edgeDistance, double edgeTravelTime, int edgeCapacity, const std::string& edgeLine)
-    : source(sourceNode), destination(destNode), distance(edgeDistance), travelTime(edgeTravelTime), capacity(edgeCapacity), line(edgeLine){}
+Edge::Edge(std::shared_ptr<Node> curNode, std::shared_ptr<Node> nexNode, double distance, double travelTime, int capacity, const std::string& res_com)
+    : source(curNode), destination(nexNode), distance(distance), travelTime(travelTime), capacity(capacity), line(res_com){}
 
 
 // Function to get the string representation of the Edge's data
@@ -80,6 +75,14 @@ std::shared_ptr<Node> Edge::getDestination() const {
 
 std::string Edge::getLine() const {
     return line;
+}
+
+bool Edge::operator<(const Edge& other) const {
+        if (this->getSource()->getId() == other.getSource()->getId()) {
+            return this->getDestination()->getId() < other.getDestination()->getId();
+        } else {
+            return this->getSource()->getId() < other.getSource()->getId();
+        }
 }
 
 std::vector<std::shared_ptr<Node>> nodes;

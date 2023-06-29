@@ -1,4 +1,11 @@
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <cctype>
+#include <sstream>
 #include "MetroNetwork.hpp"
+#include "MetroData.hpp"
 
 // Constructor
 MetroNetwork::MetroNetwork() {}
@@ -39,10 +46,29 @@ void MetroNetwork::addEdge(std::shared_ptr<Edge> edge) {
 
     // Add to adjacency matrix
     adjacencyMatrix[sourceId][destinationId] = edge;
-    
+
+    // Create the reverse edge
+    std::shared_ptr<Edge> reverseEdge = std::make_shared<Edge>(edge->getDestination(), edge->getSource(), edge->getDistance(), edge->getTravelTime(), edge->getCapacity(), edge->getLine());
+
+    // Add the reverse edge to the adjacency list, reverse adjacency list, and adjacency matrix
+    adjacencyList[destinationId].push_back(reverseEdge);
+    reverseAdjacencyList[sourceId].push_back(reverseEdge);
+    adjacencyMatrix[destinationId][sourceId] = reverseEdge;
+
     // Debug print statement
     std::cout << "Added edge: " << edge->getEdgeData() << std::endl;
+    std::cout << "Added reverse edge: " << reverseEdge->getEdgeData() << std::endl;
 }
+
+// Add a potential start/end station
+void MetroNetwork::addPotentialStartEndStation(int id) {
+    potentialStartEndStations.push_back(id);
+}
+
+bool MetroNetwork::isPotentialStartEndStation(int id) const {
+    return std::find(potentialStartEndStations.begin(), potentialStartEndStations.end(), id) != potentialStartEndStations.end();
+}
+
 
 // Get all edges from a station by its id
 std::vector<std::shared_ptr<Edge>> MetroNetwork::getEdgesFromStation(int id) const {
@@ -108,30 +134,64 @@ std::map<int, std::shared_ptr<Node>> MetroNetwork::getNodes() const {
     return nodes;
 }
 
+//this is for direct graph
+
+//// Get the predecessors of a node
+//// Each edge in the vector for a node N is an edge leading to N.
+//std::vector<std::shared_ptr<Node>> MetroNetwork::getPredecessors(int id) {
+//    std::vector<std::shared_ptr<Node>> predecessors;
+//    for (const auto& edge : reverseAdjacencyList[id]) {
+//        predecessors.push_back(edge->getSource());
+//    }
+//    return predecessors;
+//}
+//
+//
+//
+//// Get the successors of a node
+//// the set of all nodes with an edge from N
+//std::vector<std::shared_ptr<Node>> MetroNetwork::getSuccessors(int id) {
+//    std::vector<std::shared_ptr<Node>> successors;
+//    for (const auto& edge : adjacencyList[id]) {
+//        successors.push_back(edge->getDestination());
+//    }
+//    return successors;
+//}
+
 // Get the predecessors of a node
-// Each edge in the vector for a node N is an edge leading to N.
 std::vector<std::shared_ptr<Node>> MetroNetwork::getPredecessors(int id) {
     std::vector<std::shared_ptr<Node>> predecessors;
-    for (const auto& edge : reverseAdjacencyList[id]) {
-        predecessors.push_back(edge->getSource());
+    for (const auto& edge : adjacencyList[id]) {
+        predecessors.push_back(edge->getDestination());
     }
     return predecessors;
 }
 
 
-
 // Get the successors of a node
-// the set of all nodes with an edge from N
 std::vector<std::shared_ptr<Node>> MetroNetwork::getSuccessors(int id) {
-    std::vector<std::shared_ptr<Node>> successors;
-    for (const auto& edge : adjacencyList[id]) {
-        successors.push_back(edge->getDestination());
-    }
-    return successors;
+    return getPredecessors(id);
 }
 
+void MetroNetwork::analyzeNetwork() {
+    for (const auto& nodePair : this->getNodes()) {
+        int id = nodePair.first;
+        if (this->getPredecessors(id).size() == 1 && std::find(potentialStartEndStations.begin(), potentialStartEndStations.end(), id) != potentialStartEndStations.end()) {
+            potentialStartEndStations.push_back(id);
+        }
+        if (this->getSuccessors(id).size() == 1 && std::find(potentialStartEndStations.begin(), potentialStartEndStations.end(), id) != potentialStartEndStations.end()) {
+            potentialStartEndStations.push_back(id);
+        }
+    }
+}
 
-
-
-
+std::set<std::shared_ptr<Edge>, MetroNetwork::EdgePtrComp> MetroNetwork::getAllEdges() const {
+    std::set<std::shared_ptr<Edge>, MetroNetwork::EdgePtrComp> allEdges;
+    for (const auto& pair : adjacencyList) {
+        for (const auto& edge : pair.second) {
+            allEdges.insert(edge);
+        }
+    }
+    return allEdges;
+}
 

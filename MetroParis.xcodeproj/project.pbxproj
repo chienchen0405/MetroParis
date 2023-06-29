@@ -10,6 +10,7 @@
 		F8BFB7AC2A496AE0005469A3 /* StationLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8BFB7AA2A496AE0005469A3 /* StationLine.cpp */; };
 		F8BFB7B02A498055005469A3 /* MetroNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8BFB7AE2A498055005469A3 /* MetroNetwork.cpp */; };
 		F8BFB7B32A498DC3005469A3 /* MetroData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8BFB7B12A498DC3005469A3 /* MetroData.cpp */; };
+		F8E2106B2A4DAE04007D18F5 /* ShortestPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E210692A4DAE04007D18F5 /* ShortestPath.cpp */; };
 		F8E94D562A48858B0007475B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E94D552A48858B0007475B /* main.cpp */; };
 		F8E94D612A4886920007475B /* Station.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E94D5F2A4886920007475B /* Station.cpp */; };
 /* End PBXBuildFile section */
@@ -33,6 +34,8 @@
 		F8BFB7AF2A498055005469A3 /* MetroNetwork.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetroNetwork.hpp; sourceTree = "<group>"; };
 		F8BFB7B12A498DC3005469A3 /* MetroData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MetroData.cpp; sourceTree = "<group>"; };
 		F8BFB7B22A498DC3005469A3 /* MetroData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetroData.hpp; sourceTree = "<group>"; };
+		F8E210692A4DAE04007D18F5 /* ShortestPath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShortestPath.cpp; sourceTree = "<group>"; };
+		F8E2106A2A4DAE04007D18F5 /* ShortestPath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShortestPath.hpp; sourceTree = "<group>"; };
 		F8E94D522A48858B0007475B /* MetroParis */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MetroParis; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E94D552A48858B0007475B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F8E94D5F2A4886920007475B /* Station.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Station.cpp; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 				F8BFB7AA2A496AE0005469A3 /* StationLine.cpp */,
 				F8BFB7AE2A498055005469A3 /* MetroNetwork.cpp */,
 				F8BFB7B12A498DC3005469A3 /* MetroData.cpp */,
+				F8E210692A4DAE04007D18F5 /* ShortestPath.cpp */,
 			);
 			name = implement;
 			sourceTree = "<group>";
@@ -96,6 +100,7 @@
 				F8BFB7AB2A496AE0005469A3 /* StationLine.hpp */,
 				F8BFB7AF2A498055005469A3 /* MetroNetwork.hpp */,
 				F8BFB7B22A498DC3005469A3 /* MetroData.hpp */,
+				F8E2106A2A4DAE04007D18F5 /* ShortestPath.hpp */,
 			);
 			name = header;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8E2106B2A4DAE04007D18F5 /* ShortestPath.cpp in Sources */,
 				F8BFB7AC2A496AE0005469A3 /* StationLine.cpp in Sources */,
 				F8E94D612A4886920007475B /* Station.cpp in Sources */,
 				F8BFB7B02A498055005469A3 /* MetroNetwork.cpp in Sources */,

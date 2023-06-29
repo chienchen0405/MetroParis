@@ -5,21 +5,25 @@
 #include <map>
 #include <vector>
 #include <memory>
+#include <set>
+#include <memory>
+
 
 class MetroNetwork {
 private:
     std::map<int, std::shared_ptr<Node>> nodes;
     std::map<int, std::vector<std::shared_ptr<Edge>>> adjacencyList;
     std::map<int, std::map<int, std::shared_ptr<Edge>>> adjacencyMatrix;
-    
-    //reverseAdjacencyList is a map from node IDs to vectors of edges. Each edge in the vector for a node N is an edge leading to N. This allows to get the predecessors of a node in O(1) time by simply looking up the node in reverseAdjacencyList.
     std::map<int, std::vector<std::shared_ptr<Edge>>> reverseAdjacencyList;
-
+    std::vector<int> potentialStartEndStations;
+    
 public:
     MetroNetwork();
 
     void addStation(std::shared_ptr<Node> station);
     void addEdge(std::shared_ptr<Edge> edge);
+    void addPotentialStartEndStation(int id);
+    bool isPotentialStartEndStation(int id) const;
 
     std::shared_ptr<Node> getStation(int id);
     std::vector<std::shared_ptr<Edge>> getEdgesFromStation(int id) const;
@@ -32,11 +36,18 @@ public:
     
     void displayAdjacencyMatrix();
     
-    // Get the predecessors of a node
     std::vector<std::shared_ptr<Node>> getPredecessors(int id);
-
-    // Get the successors of a node
     std::vector<std::shared_ptr<Node>> getSuccessors(int id);
+    
+    void analyzeNetwork();
+    
+    struct EdgePtrComp {
+        bool operator()(const std::shared_ptr<Edge>& lhs, const std::shared_ptr<Edge>& rhs) const {
+            return *lhs < *rhs;
+        }
+    };
+    
+    std::set<std::shared_ptr<Edge>, EdgePtrComp> getAllEdges() const;
 };
 
 #endif // METRONETWORK_HPP

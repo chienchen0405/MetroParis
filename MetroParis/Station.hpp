@@ -8,23 +8,21 @@
 
 class Node {
 public:
-    Node(int nodeId, const std::string& nodeName, double nodeLatitude, double nodeLongitude);
+    Node(int curNode, const std::string& curName, const std::string& curGeoPoint);
     std::string getNodeData() const;
     int getId() const;
     std::string getName() const;
-    double getLatitude() const;
-    double getLongitude() const;
+    std::string getGeoPoint() const;
 
 private:
     int id;
     std::string name;
-    double latitude;
-    double longitude;
+    std::string geoPoint;
 };
 
 class Edge {
 public:
-    Edge(std::shared_ptr<Node> sourceNode, std::shared_ptr<Node> destNode, double edgeDistance, double edgeTravelTime, int edgeCapacity,const std::string& edgeLine);
+    Edge(std::shared_ptr<Node> curNode, std::shared_ptr<Node> nexNode, double distance, double travelTime, int capacity, const std::string& line);
     std::string getEdgeData() const;
     int getCapacity() const;
     std::shared_ptr<Node> getSource() const;
@@ -32,6 +30,8 @@ public:
     double getTravelTime() const;
     std::shared_ptr<Node> getDestination() const;
     std::string getLine() const;
+
+    bool operator<(const Edge& other) const;
 
 private:
     std::shared_ptr<Node> source;
