@@ -1,46 +1,69 @@
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+import folium
+from folium.plugins import MousePosition
 
-df = pd.read_csv('Graph_list - Graph_list 1.csv')
+df = pd.read_csv('metroparis - test.csv')
 
-longitudes = df['source_long'].values
-latitudes = df['source_lat'].values
-source_name = df['source_name'].values
-list1 = []
-list2 = []
-for i in range(len(longitudes)):
+
+cur_Geo_Point = df['cur_Geo Point'].values
+cur_name = df['cur_name'].values
+numeric_list = [[float(coord) for coord in item.split(',')] for item in cur_Geo_Point]
+
     
-    if longitudes[i][6] == '″':
-        degrees = int(longitudes[i][0])
-        minutes = int(longitudes[i][2:4])
-        seconds = int(longitudes[i][5])
-        longitude_value = degrees + minutes / 60 + seconds / 3600
-        list1.append(longitude_value)
-    else:
-        degrees = int(longitudes[i][0])
-        minutes = int(longitudes[i][2:4])
-        seconds = int(longitudes[i][5:7])
-        longitude_value = degrees + minutes / 60 + seconds / 3600
-        list1.append(longitude_value)
+line_one = numeric_list[:24]
+line_two = numeric_list[25:72]
+line_three = numeric_list[73:]
+
+cur_name_one = cur_name[:24]
+cur_name_two = cur_name[25:72]
+cur_name_three = cur_name[73:]
+
+# 创建地图对象
+map = folium.Map(location=[48.866111, 2.276667], zoom_start=14)
+
+# 绘制地铁线路
+line_coordinates = [
+    {
+     'coordinates':line_one,
+     'color': 'red',
+     'comments':cur_name_one
+     },
+    {
+     'coordinates':line_two,
+     'color': 'blue',
+     'comments':cur_name_two
+     },
+    {
+     'coordinates':line_three,
+     'color': 'green',
+     'comments':cur_name_three
+     },
+  
+    ]
+
+
+
+# 绘制线路并添加注释
+for line in line_coordinates:
+    coordinates = line['coordinates']
+    comments = line['comments']
+    color = line['color']
     
-for i in range(len(latitudes)):
+    for i in range(len(coordinates)):
+        coordinate = coordinates[i]
+        comment = comments[i]
+        
+        folium.Marker(location=coordinate, icon=folium.Icon(color=color)).add_child(folium.Tooltip(comment)).add_to(map)
     
-    degrees = int(latitudes[i][0:2])
-    minutes = int(latitudes[i][3:5])
-    seconds = int(latitudes[i][6:8])
-    latitudes_value = degrees + minutes / 60 + seconds / 3600
-    list2.append(latitudes_value)
+    folium.PolyLine(locations=coordinates, color=color, weight=3).add_to(map)
 
-plt.plot(list1, list2)
+# 添加鼠标位置插件
+MousePosition().add_to(map)
 
-# 添加标签
-for i in range(len(list1)):
-    plt.text(list1[i], list2[i], source_name[i], fontsize=8, ha='center', va='center')
+# 在浏览器中显示地图
+map.save('map.html')
 
-# 设置坐标轴标签
-plt.xlabel('longitudes')
-plt.ylabel('latitudes')
 
-# 显示图形
-plt.show()
+
+
+
