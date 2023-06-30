@@ -16,5 +16,6 @@ public:
     void destroyLineIterative();
     void destroyLineRecursive();
     void displayLine();
+    std::shared_ptr<Cell<Node>> getHead();
 };
 

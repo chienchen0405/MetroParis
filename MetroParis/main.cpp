@@ -42,6 +42,7 @@
 //     network.displayAdjacencyMatrix();
 // }
 
+
 void testShortestPath() {
     // Create a MetroData object to read from the CSV file
     MetroData metroData;
@@ -65,22 +66,47 @@ void testShortestPath() {
     std::ofstream outfile("output.csv");
 
     // Write the header to the file
-    outfile << "Station Name,Latitude,Longitude\n";
+    outfile << "Station Name,Latitude,Longitude,Metro Line\n";
 
-    // Write the station names and GeoPoints to the file
+    // Create a Line object and populate it with the stations from the shortest path
+    Line line;
     for (const auto& node : result.second) {
-        std::string geoPoint = node->getGeoPoint();
+        line.insertEndStation(node);
+    }
+
+    std::shared_ptr<Cell<Node>> current = line.getHead(); // Get the head of the line
+    std::shared_ptr<Cell<Node>> next = nullptr;
+
+    while (current != nullptr) { // Iterate through the line until the end
+        std::string geoPoint = current->value->getGeoPoint();
         size_t commaPos = geoPoint.find(",");
         
         std::string latitude = geoPoint.substr(1, commaPos - 1); // Start at 1 to skip the first quote
         std::string longitude = geoPoint.substr(commaPos + 1, geoPoint.length() - commaPos - 2); // Subtract 2 to skip the last quote
 
-        outfile << node->getName() << "," << latitude << "," << longitude << "\n";
+        std::string metroLine;
+
+        // Get the next node in the line, if it exists
+        next = current->next != nullptr ? current->next : nullptr;
+
+        if (next != nullptr) {
+            auto edge = network.getEdgeBetweenStations(current->value->getId(), next->value->getId());
+            if (edge) { // Check if edge is not null
+                metroLine = edge->getLine();
+            }
+        }
+        
+        outfile << current->value->getName() << "," << latitude << "," << longitude << "," << metroLine << "\n";
+
+        // Move to the next station
+        current = next;
     }
 
     // Close the file stream
     outfile.close();
 }
+
+
 
 
 

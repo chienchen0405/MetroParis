@@ -46,3 +46,8 @@ void Line::displayLine() {
         current = current->next; // Move to the next station
     }
 }
+
+std::shared_ptr<Cell<Node>> Line::getHead() {
+    return stations.getHead();
+}
+
