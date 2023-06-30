@@ -13,6 +13,7 @@ public:
     int getId() const;
     std::string getName() const;
     std::string getGeoPoint() const;
+    std::string toCSV() const;
 
 private:
     int id;

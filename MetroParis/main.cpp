@@ -1,5 +1,4 @@
 #include "Station.hpp"
-#include "StationLine.hpp"
 
 #include "MetroNetwork.hpp"
 #include "ShortestPath.hpp"
@@ -69,12 +68,12 @@ void testShortestPath() {
     outfile << "Station Name,Latitude,Longitude,Metro Line\n";
 
     // Create a Line object and populate it with the stations from the shortest path
-    Line line;
+    Line metro;
     for (const auto& node : result.second) {
-        line.insertEndStation(node);
+        metro.insertEndStation(node);
     }
 
-    std::shared_ptr<Cell<Node>> current = line.getHead(); // Get the head of the line
+    std::shared_ptr<Cell<Node>> current = metro.getHead(); // Get the head of the line
     std::shared_ptr<Cell<Node>> next = nullptr;
 
     while (current != nullptr) { // Iterate through the line until the end
@@ -106,13 +105,46 @@ void testShortestPath() {
     outfile.close();
 }
 
+void testgetRecommandStation(){
+    // Create a MetroData object to read from the CSV file
+    MetroData metroData;
+    
+    // Create a MetroNetwork object to hold the network data
+    MetroNetwork network;
+    
+    // Read from the CSV file into the MetroNetwork object
+    metroData.readFromFile("test.csv", network);
+    
+    // Add some nodes and edges to your network...
+    
+    try {
+        // Read the start node ID from a CSV file.
+        std::string filename = "selected_station.csv";
+        std::ifstream file(filename);
+        std::string line;
+        std::getline(file, line);  // Skip the header line.
+        std::getline(file, line);  // Read the first data line.
+        std::stringstream ss(line);
+        std::string id_str;
+        std::getline(ss, id_str, ',');
+        int startNodeId = std::stoi(id_str);  // Convert the ID string to an integer.
 
+        // Get the recommended line.
+        Line recommendedLine = network.getRecommend(startNodeId);
 
-
-
+        recommendedLine.saveToCSV("recommendedLine.csv");
+    }
+    catch (const std::exception &e) { // This will catch any standard exceptions
+        std::cerr << "An error occurred: " << e.what() << std::endl;
+    }
+}
 
 int main() {
     //testReadFromFile();
-    testShortestPath();
+    //testShortestPath();
+    testgetRecommandStation();
     return 0;
 }
+
+
+

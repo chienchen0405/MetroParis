@@ -2,6 +2,7 @@
 #define METRONETWORK_HPP
 
 #include "Station.hpp"
+#include "StationLine.hpp"
 #include <map>
 #include <vector>
 #include <memory>
@@ -48,6 +49,9 @@ public:
     };
     
     std::set<std::shared_ptr<Edge>, EdgePtrComp> getAllEdges() const;
+    
+    void updateCurrentNodeAndLine(const std::vector<Edge>& edges, std::shared_ptr<Node>& currentNode, Line& line, bool isPredecessor);
+    Line getRecommend(int startNodeId);
 };
 
 #endif // METRONETWORK_HPP

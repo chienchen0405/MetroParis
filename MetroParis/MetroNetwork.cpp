@@ -195,3 +195,34 @@ std::set<std::shared_ptr<Edge>, MetroNetwork::EdgePtrComp> MetroNetwork::getAllE
     return allEdges;
 }
 
+void updateCurrentNodeAndLine(std::vector<std::shared_ptr<Node>>& nodes, std::shared_ptr<Node>& currentNode, Line& line, bool isPredecessor) {
+    if (!nodes.empty()) {
+        currentNode = nodes[0];
+        if (isPredecessor) {
+            line.insertHeadStation(currentNode);
+        } else {
+            line.insertEndStation(currentNode);
+        }
+    }
+}
+
+//Line MetroNetwork::getRecommend(int startNodeId) {
+//    auto startNodeIter = nodes.find(startNodeId);
+//
+//    if (startNodeIter == nodes.end()) {
+//        throw std::invalid_argument("Start node is not found in the network!");
+//    }
+//
+//    std::shared_ptr<Node> currentNode = startNodeIter->second;
+//    Line line;
+//
+//    for (int i = 0; i < 3 && currentNode; i++) {
+//        auto predecessors = getPredecessors(currentNode->getId());
+//        auto successors = getSuccessors(currentNode->getId());
+//
+//        updateCurrentNodeAndLine(predecessors, currentNode, line, true);
+//        updateCurrentNodeAndLine(successors, currentNode, line, false);
+//    }
+//
+//    return line;
+//}

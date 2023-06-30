@@ -2,16 +2,33 @@
 #include "LinkedList.hpp"
 #include "Station.hpp"
 #include <iostream>
+#include <fstream>
 
-// Function to insert a station at the beginning of the line
+// Check if a node already exists in the linked list
+bool Line::nodeExists(std::shared_ptr<Node> station) {
+    std::shared_ptr<Cell<Node>> current = stations.getHead();
+    while (current != nullptr) {
+        if (current->value->getId() == station->getId()) {
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
+}
+
+// Modify the insert functions to check for uniqueness
 void Line::insertHeadStation(std::shared_ptr<Node> station) {
-    stations.insertAtBeginning(station); // Insert the station at the beginning of the line
+    if (!nodeExists(station)) {
+        stations.insertAtBeginning(station);
+    }
 }
 
-// Function to insert a station at the end of the line
 void Line::insertEndStation(std::shared_ptr<Node> station) {
-    stations.insertAtEnd(station); // Insert the station at the end of the line
+    if (!nodeExists(station)) {
+        stations.insertAtEnd(station);
+    }
 }
+
 
 // Function to remove and return the station at the beginning of the line
 std::shared_ptr<Node> Line::popHeadStation() {
@@ -47,7 +64,23 @@ void Line::displayLine() {
     }
 }
 
-std::shared_ptr<Cell<Node>> Line::getHead() {
+std::shared_ptr<Cell<Node>> Line::getHead() const {
     return stations.getHead();
 }
 
+void Line::saveToCSV(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file) {
+        std::cerr << "Error: Unable to open file for writing: " << filename << std::endl;
+        return;
+    }
+    // Write header
+    file << "ID,Name,GeoPoint\n";
+
+    // Write each node to the file
+    std::shared_ptr<Cell<Node>> current = stations.getHead();
+    while (current != nullptr) {
+        file << current->value->toCSV() << "\n";
+        current = current->next;
+    }
+}

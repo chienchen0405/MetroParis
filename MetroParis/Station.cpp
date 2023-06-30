@@ -30,6 +30,12 @@ std::string Node::getGeoPoint() const {
     return geoPoint; // Return the GeoPoint of the Node
 }
 
+std::string Node::toCSV() const {
+    std::ostringstream oss;
+    oss << id << "," << name << "," << geoPoint;
+    return oss.str();
+}
+
 // Edge function implementations
 
 Edge::Edge(std::shared_ptr<Node> curNode, std::shared_ptr<Node> nexNode, double distance, double travelTime, int capacity, const std::string& res_com)
