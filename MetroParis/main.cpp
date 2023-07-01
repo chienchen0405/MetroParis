@@ -55,14 +55,44 @@ void testShortestPath() {
     // Create a ShortestPath object to find shortest paths in the network
     ShortestPath shortestPath;
 
-    // Find the shortest path from a source node to a destination node
-    int sourceId = 101033; // Change this to your actual source node ID
-    int destinationId = 103035; // Change this to your actual destination node ID
+    // Read the source and destination IDs from their respective CSV files
+    int sourceId, destinationId;
+    std::ifstream sourceFile("source_station.csv");
+    std::ifstream destinationFile("destination_station.csv");
+    std::string sourceLine, destinationLine, value;
 
+    if (!sourceFile.is_open() || !destinationFile.is_open()) {
+        std::cerr << "Error opening file. Please ensure the file paths are correct." << std::endl;
+        return;
+    }
+
+    // Skip the first line of each file (the header)
+    std::getline(sourceFile, sourceLine);
+    std::getline(destinationFile, destinationLine);
+
+    // Read the second line of each file (the station info)
+    if (!std::getline(sourceFile, sourceLine) || !std::getline(destinationFile, destinationLine)) {
+        std::cerr << "Error reading file. Please ensure the file format is correct." << std::endl;
+        return;
+    }
+
+    std::stringstream sourceStream(sourceLine);
+    std::getline(sourceStream, value, ',');
+    sourceId = std::stoi(value);  // Convert the ID from string to int
+
+    std::stringstream destinationStream(destinationLine);
+    std::getline(destinationStream, value, ',');
+    destinationId = std::stoi(value);  // Convert the ID from string to int
+
+    // Ensure both files are closed
+    sourceFile.close();
+    destinationFile.close();
+
+    // Find the shortest path from a source node to a destination node
     auto result = shortestPath.findShortestPath(network, sourceId, destinationId);
 
     // Open an output file stream
-    std::ofstream outfile("output.csv");
+    std::ofstream outfile("ShortestPath.csv");
 
     // Write the header to the file
     outfile << "Station Name,Latitude,Longitude,Metro Line\n";
@@ -143,8 +173,8 @@ void testgetRecommandStation(){
 
 int main() {
     //testReadFromFile();
-    //testShortestPath();
-    testgetRecommandStation();
+    testShortestPath();
+    //testgetRecommandStation();
     return 0;
 }
 
