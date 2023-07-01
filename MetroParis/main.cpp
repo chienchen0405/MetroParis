@@ -130,7 +130,9 @@ void testgetRecommandStation(){
         int startNodeId = std::stoi(id_str);  // Convert the ID string to an integer.
 
         // Get the recommended line.
-        Line recommendedLine = network.getRecommend(startNodeId);
+        Line recommendedLine = network.getRecommendBFS(startNodeId);
+        // or we could use
+        //Line recommendedLine = network.getRecommendDFS(startNodeId);
 
         recommendedLine.saveToCSV("recommendedLine.csv");
     }

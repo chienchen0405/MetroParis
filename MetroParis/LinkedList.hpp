@@ -99,6 +99,18 @@ public:
         return head; // Return the head of the linked list
     }
     
+    std::size_t size() const {
+        std::size_t size = 0;
+        std::shared_ptr<Cell<T>> temp = head;
+
+        while (temp != nullptr) {
+            size++;
+            temp = temp->next;
+        }
+
+        return size;
+    }
+
 };
 
 #endif // LINKEDLIST_HPP

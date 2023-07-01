@@ -69,6 +69,15 @@ bool MetroNetwork::isPotentialStartEndStation(int id) const {
     return std::find(potentialStartEndStations.begin(), potentialStartEndStations.end(), id) != potentialStartEndStations.end();
 }
 
+std::shared_ptr<Node> MetroNetwork::getStation(int id) {
+    auto it = nodes.find(id);
+    if (it != nodes.end()) {
+        return it->second;
+    } else {
+        throw std::invalid_argument("Station with given ID not found in the network!");
+    }
+}
+
 
 // Get all edges from a station by its id
 std::vector<std::shared_ptr<Edge>> MetroNetwork::getEdgesFromStation(int id) const {
@@ -134,7 +143,8 @@ std::map<int, std::shared_ptr<Node>> MetroNetwork::getNodes() const {
     return nodes;
 }
 
-//this is for direct graph
+
+//this is for direct graph if we want to use
 
 //// Get the predecessors of a node
 //// Each edge in the vector for a node N is an edge leading to N.
@@ -157,6 +167,8 @@ std::map<int, std::shared_ptr<Node>> MetroNetwork::getNodes() const {
 //    }
 //    return successors;
 //}
+
+//now we use undirect way
 
 // Get the predecessors of a node
 std::vector<std::shared_ptr<Node>> MetroNetwork::getPredecessors(int id) {
@@ -195,34 +207,88 @@ std::set<std::shared_ptr<Edge>, MetroNetwork::EdgePtrComp> MetroNetwork::getAllE
     return allEdges;
 }
 
-void updateCurrentNodeAndLine(std::vector<std::shared_ptr<Node>>& nodes, std::shared_ptr<Node>& currentNode, Line& line, bool isPredecessor) {
-    if (!nodes.empty()) {
-        currentNode = nodes[0];
-        if (isPredecessor) {
-            line.insertHeadStation(currentNode);
-        } else {
-            line.insertEndStation(currentNode);
+
+Line MetroNetwork::getRecommendDFS(int startNodeId) {
+    std::shared_ptr<Node> startNode = getStation(startNodeId);
+    if (!startNode) {
+        throw std::invalid_argument("Start node is not found in the network!");
+    }
+
+    Line line;
+    std::unordered_set<int> visitedNodes; // to store visited node IDs
+
+    // Start DFS from the successors of the start node
+    auto successors = getSuccessors(startNode->getId()); // Get successors
+    for(const auto& node : successors) {
+        if(visitedNodes.find(node->getId()) == visitedNodes.end()) { // If the successor has not been visited
+            DFS(node->getId(), visitedNodes, line); // Recursively visit the successor
+        }
+    }
+    return line;
+}
+
+void MetroNetwork::DFS(int startNodeId, std::unordered_set<int>& visitedNodes, Line& line) {
+    if (line.size() >= 6) return; // change the size limit to 6
+
+    std::shared_ptr<Node> startNode = getStation(startNodeId);
+    visitedNodes.insert(startNodeId); // Mark the current node as visited
+
+    line.insertEndStation(startNode);
+
+    auto successors = getSuccessors(startNode->getId()); // Get successors
+
+    for(const auto& node : successors) {
+        if(node->getId() != startNodeId && visitedNodes.find(node->getId()) == visitedNodes.end()) { // If the successor is not the start node and has not been visited
+            DFS(node->getId(), visitedNodes, line); // Recursively visit the successor
         }
     }
 }
 
-//Line MetroNetwork::getRecommend(int startNodeId) {
-//    auto startNodeIter = nodes.find(startNodeId);
-//
-//    if (startNodeIter == nodes.end()) {
-//        throw std::invalid_argument("Start node is not found in the network!");
-//    }
-//
-//    std::shared_ptr<Node> currentNode = startNodeIter->second;
-//    Line line;
-//
-//    for (int i = 0; i < 3 && currentNode; i++) {
-//        auto predecessors = getPredecessors(currentNode->getId());
-//        auto successors = getSuccessors(currentNode->getId());
-//
-//        updateCurrentNodeAndLine(predecessors, currentNode, line, true);
-//        updateCurrentNodeAndLine(successors, currentNode, line, false);
-//    }
-//
-//    return line;
-//}
+
+
+Line MetroNetwork::getRecommendBFS(int startNodeId) {
+    std::shared_ptr<Node> startNode = getStation(startNodeId);
+    if (!startNode) {
+        throw std::invalid_argument("Start node is not found in the network!");
+    }
+
+    Line line;
+    std::unordered_set<int> visitedNodes; // to store visited node IDs
+    std::queue<int> nodeQueue; // Create a queue for BFS
+
+    // Start BFS from the start node
+    BFS(startNodeId, nodeQueue, visitedNodes, line);
+    return line;
+}
+
+
+void MetroNetwork::BFS(int startNodeId, std::queue<int>& nodeQueue, std::unordered_set<int>& visitedNodes, Line& line) {
+    nodeQueue.push(startNodeId); // Add start node to the queue
+
+    while(!nodeQueue.empty() && line.size() < 6) { // change the size limit to 6
+        int currentNodeId = nodeQueue.front();
+        nodeQueue.pop(); // Remove the node from the queue
+
+        if(visitedNodes.find(currentNodeId) == visitedNodes.end()) { // If the node has not been visited
+            visitedNodes.insert(currentNodeId); // Mark the node as visited
+
+            std::shared_ptr<Node> currentNode = getStation(currentNodeId);
+            
+            line.insertEndStation(currentNode);
+
+            auto successors = getSuccessors(currentNode->getId()); // Get successors
+
+            for(const auto& node : successors) {
+                if(node->getId() != startNodeId && node->getId() != currentNodeId && visitedNodes.find(node->getId()) == visitedNodes.end()) { // If the successor is not the start node, not the current node, and has not been visited
+                    nodeQueue.push(node->getId()); // Add successors to the queue
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+

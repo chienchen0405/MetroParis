@@ -3,6 +3,10 @@
 
 #include "Station.hpp"
 #include "StationLine.hpp"
+
+#include <unordered_set>
+#include <queue>
+
 #include <map>
 #include <vector>
 #include <memory>
@@ -50,8 +54,10 @@ public:
     
     std::set<std::shared_ptr<Edge>, EdgePtrComp> getAllEdges() const;
     
-    void updateCurrentNodeAndLine(const std::vector<Edge>& edges, std::shared_ptr<Node>& currentNode, Line& line, bool isPredecessor);
-    Line getRecommend(int startNodeId);
+    Line getRecommendDFS(int startNodeId);
+    void DFS(int startNodeId, std::unordered_set<int>& visitedNodes, Line& line);
+    Line getRecommendBFS(int startNodeId);
+    void BFS(int startNodeId, std::queue<int>& nodeQueue, std::unordered_set<int>& visitedNodes, Line& line);
 };
 
 #endif // METRONETWORK_HPP

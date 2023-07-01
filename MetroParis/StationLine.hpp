@@ -10,7 +10,6 @@ private:
     
     // Helper method to remove a station from the vector
 public:
-    bool nodeExists(std::shared_ptr<Node> station);
     void insertHeadStation(std::shared_ptr<Node> station);
     void insertEndStation(std::shared_ptr<Node> station);
     std::shared_ptr<Node> popHeadStation();
@@ -22,4 +21,5 @@ public:
     std::shared_ptr<Cell<Node>> getHead() const;
     void saveToCSV(const std::string& filename) const;
     void removeStationFromVector(const std::shared_ptr<Node>& station);
+    std::size_t size() const;
 };

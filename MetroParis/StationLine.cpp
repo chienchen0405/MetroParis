@@ -4,29 +4,14 @@
 #include <iostream>
 #include <fstream>
 
-// Check if a node already exists in the linked list
-bool Line::nodeExists(std::shared_ptr<Node> station) {
-    std::shared_ptr<Cell<Node>> current = stations.getHead();
-    while (current != nullptr) {
-        if (current->value->getId() == station->getId()) {
-            return true;
-        }
-        current = current->next;
-    }
-    return false;
-}
 
 // Modify the insert functions to check for uniqueness
 void Line::insertHeadStation(std::shared_ptr<Node> station) {
-    if (!nodeExists(station)) {
         stations.insertAtBeginning(station);
-    }
 }
 
 void Line::insertEndStation(std::shared_ptr<Node> station) {
-    if (!nodeExists(station)) {
         stations.insertAtEnd(station);
-    }
 }
 
 
@@ -83,4 +68,8 @@ void Line::saveToCSV(const std::string& filename) const {
         file << current->value->toCSV() << "\n";
         current = current->next;
     }
+}
+
+std::size_t Line::size() const {
+    return stations.size();
 }
